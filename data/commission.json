@@ -11,7 +11,7 @@
       "id": "pds",
       "name": "Photon Detection System",
       "name_cn": "光子探测系统",
-      "responsible": "JJ Yang",
+      "responsible": "杨继军",
       "planned_start": "2026-07-15",
       "planned_end": "2026-12-30",
       "subtasks": [
@@ -23,7 +23,7 @@
           "planned_end": "2026-09-20",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -34,7 +34,7 @@
           "planned_end": "2026-10-15",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -45,7 +45,7 @@
           "planned_end": "2026-09-25",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "于佳成",
           "notes": ""
         },
         {
@@ -56,7 +56,7 @@
           "planned_end": "2026-08-10",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -67,7 +67,7 @@
           "planned_end": "2026-08-15",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -78,7 +78,7 @@
           "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -89,7 +89,7 @@
           "planned_end": "2026-08-10",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -100,7 +100,7 @@
           "planned_end": "2026-09-20",
           "status": "in_progress",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": "厂家给出报价"
         },
         {
@@ -111,7 +111,7 @@
           "planned_end": "2026-10-15",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -143,18 +143,18 @@
           "planned_end": "2026-07-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": ""
         },
         {
           "id": "daq-02",
-          "name": "Trigger System Setup",
-          "name_cn": "触发系统搭建",
+          "name": "Triggerless Readout & Bandwidth Test Run",
+          "name_cn": "无触发读出及带宽、写入测试",
           "planned_start": "2026-07-30",
           "planned_end": "2026-08-15",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "CC & YJJ",
           "notes": ""
         },
         {
@@ -163,10 +163,10 @@
           "name_cn": "数据采集软件部署",
           "planned_start": "2026-08-15",
           "planned_end": "2026-09-01",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "CC",
+          "notes": "和交大PandaX合作已完成开发，待系统测试验证"
         },
         {
           "id": "daq-04",
@@ -176,7 +176,7 @@
           "planned_end": "2026-07-20",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "CC & LeiYang",
           "notes": ""
         },
         {
@@ -187,7 +187,7 @@
           "planned_end": "2026-09-20",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "CC",
           "notes": ""
         },
         {
@@ -198,13 +198,13 @@
           "planned_end": "2026-10-10",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "CC",
           "notes": ""
         },
         {
           "id": "daq-07",
           "name": "Calibration Run Framework",
-          "name_cn": "标定运行框架",
+          "name_cn": "刻度运行框架",
           "planned_start": "2026-10-10",
           "planned_end": "2026-11-01",
           "status": "not_started",
@@ -218,6 +218,28 @@
           "name_cn": "数据质量监控",
           "planned_start": "2026-11-01",
           "planned_end": "2026-11-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "CC",
+          "notes": ""
+        },
+        {
+          "id": "daq-09",
+          "name": "New Task",
+          "name_cn": "新任务",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-07-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-10",
+          "name": "New Task",
+          "name_cn": "新任务",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-07-01",
           "status": "not_started",
           "progress": 0,
           "assignee": "TBD",
@@ -770,5 +792,5 @@
       ]
     }
   ],
-  "last_updated": "2026-07-19T05:53:26"
+  "last_updated": "2026-07-19T05:59:07"
 }
