@@ -11,7 +11,7 @@
       "id": "pds",
       "name": "Photon Detection System",
       "name_cn": "光子探测系统",
-      "responsible": "TBD",
+      "responsible": "YJJ",
       "planned_start": "2026-07-15",
       "planned_end": "2026-12-30",
       "subtasks": [
@@ -131,7 +131,7 @@
       "id": "daq",
       "name": "DAQ System",
       "name_cn": "数据采集系统",
-      "responsible": "TBD",
+      "responsible": "CC & LeiYang&YJJ",
       "planned_start": "2026-07-01",
       "planned_end": "2026-11-30",
       "subtasks": [
@@ -229,7 +229,7 @@
       "id": "tpc",
       "name": "TPC System",
       "name_cn": "时间投影室系统",
-      "responsible": "TBD",
+      "responsible": "谢凌峰",
       "planned_start": "2026-07-10",
       "planned_end": "2026-12-15",
       "subtasks": [
@@ -327,7 +327,7 @@
       "id": "computing",
       "name": "Computing System",
       "name_cn": "计算系统",
-      "responsible": "TBD",
+      "responsible": "王俊",
       "planned_start": "2026-07-01",
       "planned_end": "2026-11-15",
       "subtasks": [
@@ -425,9 +425,9 @@
       "id": "cryo",
       "name": "Cryogenics & Circulation System",
       "name_cn": "低温与循环系统",
-      "responsible": "TBD",
+      "responsible": "于佳成",
       "planned_start": "2026-07-05",
-      "planned_end": "2026-12-01",
+      "planned_end": "2026-12-30",
       "subtasks": [
         {
           "id": "cryo-01",
@@ -520,5 +520,5 @@
       ]
     }
   ],
-  "last_updated": "2026-07-19T05:22:22"
+  "last_updated": "2026-07-19T05:35:25"
 }
