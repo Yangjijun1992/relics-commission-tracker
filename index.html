@@ -264,7 +264,7 @@
 
     .subtask-row {
       display: grid;
-      grid-template-columns: 70px 1fr 120px 100px 100px 90px 90px 1fr;
+      grid-template-columns: 70px 1fr 125px 125px 100px 90px 90px 1fr;
       gap: 0.5rem;
       padding: 0.65rem 1.25rem;
       align-items: center;
@@ -278,6 +278,21 @@
     .subtask-row .name { font-weight: 500; }
     .subtask-row .cn { color: var(--text-secondary); font-size: 0.75rem; }
     .subtask-row .date { color: var(--text-secondary); font-size: 0.75rem; }
+
+    input.date-input {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      border-radius: 4px;
+      padding: 0.2rem 0.3rem;
+      font-size: 0.75rem;
+      font-family: inherit;
+      width: 110px;
+      cursor: pointer;
+    }
+
+    input.date-input:focus { outline: none; border-color: var(--accent-blue); color: var(--text-primary); }
+    input.date-input::-webkit-calendar-picker-indicator { filter: invert(0.7); cursor: pointer; }
     .subtask-row .assignee { color: var(--accent-cyan); font-size: 0.75rem; }
 
     .subtask-progress {
@@ -312,7 +327,7 @@
 
     .subtask-header {
       display: grid;
-      grid-template-columns: 70px 1fr 120px 100px 100px 90px 90px 1fr;
+      grid-template-columns: 70px 1fr 125px 125px 100px 90px 90px 1fr;
       gap: 0.5rem;
       padding: 0.5rem 1.25rem;
       font-size: 0.7rem;
@@ -688,8 +703,10 @@
                   <div class="name">${t.name}</div>
                   <div class="cn">${t.name_cn}</div>
                 </div>
-                <div class="date">${t.planned_start}</div>
-                <div class="date">${t.planned_end}</div>
+                <div><input type="date" class="date-input" value="${t.planned_start}"
+                  onchange="updateTask('${sys.id}','${t.id}','planned_start',this.value)"></div>
+                <div><input type="date" class="date-input" value="${t.planned_end}"
+                  onchange="updateTask('${sys.id}','${t.id}','planned_end',this.value)"></div>
                 <div class="assignee">${t.assignee}</div>
                 <div>
                   <select class="status-select" onchange="updateTask('${sys.id}','${t.id}','status',this.value)">
