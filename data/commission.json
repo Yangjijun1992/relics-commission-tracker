@@ -522,7 +522,7 @@
     {
       "id": "muon",
       "name": "Muon Veto System",
-      "name_cn": "缪子否决系统",
+      "name_cn": "缪子反符合系统",
       "responsible": "TBD",
       "planned_start": "2026-07-20",
       "planned_end": "2026-11-30",
@@ -609,7 +609,7 @@
     {
       "id": "shield",
       "name": "Shielding",
-      "name_cn": "屏蔽系统",
+      "name_cn": "屏蔽体系统",
       "responsible": "TBD",
       "planned_start": "2026-07-10",
       "planned_end": "2026-10-15",
@@ -674,7 +674,7 @@
     {
       "id": "fac",
       "name": "Facilities",
-      "name_cn": "基础设施",
+      "name_cn": "基础设施设备",
       "responsible": "TBD",
       "planned_start": "2026-07-01",
       "planned_end": "2026-12-01",
