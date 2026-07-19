@@ -6,7 +6,9 @@
 
 本项目用于管理 RELICS 实验 Commission Run 期间 **8 个子系统、80+ 项任务** 的进度跟踪、甘特图可视化和协作管理。支持自定义域名访问、基于 GitHub 的权限控制和 CODEOWNERS 自动审核机制。
 
-**访问地址：** `https://relics.tracker.com`（需完成 DNS 配置后生效）
+**访问地址：**
+- GitHub Pages 默认地址：`https://yangjijun1992.github.io/relics-commission-tracker/`
+- 自定义域名：`https://relics.tracker.com`（需完成 DNS 配置后生效，见 TODO.md）
 
 ---
 

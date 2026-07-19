@@ -7,7 +7,15 @@
 
 ## 高优先级
 
-### 1. 收集各子系统负责人 GitHub 用户名
+### 1. 启用 GitHub Pages 部署
+
+- [ ] 进入 https://github.com/Yangjijun1992/relics-commission-tracker/settings/pages
+- [ ] **Source** → 选择 `Deploy from a branch`
+- [ ] **Branch** → 选择 `main`，文件夹选 `/ (root)`，点击 Save
+- [ ] 等待 1-2 分钟，用默认地址测试：**https://yangjijun1992.github.io/relics-commission-tracker/**
+- [ ] 确认页面正常加载、数据显示正确
+
+### 2. 收集各子系统负责人 GitHub 用户名
 
 - [ ] 谢凌峰（TPC）→ 填入 `github_user`
 - [ ] 王俊（Computing / Muon）→ 填入 `github_user`
@@ -30,13 +38,23 @@
 - [ ] 勾选 **Do not allow bypassing the above settings**
 - [ ] 测试：尝试直接 push main，确认被拒绝
 
-### 3. 自定义域名 DNS 配置
+### 4. 自定义域名 DNS 配置（需先确认域名注册商）
 
-- [ ] 在域名服务商添加 A 记录（4 条，指向 GitHub Pages IP）
-- [ ] 添加 CNAME 记录 `www` → `yangjijun1992.github.io`
+- [ ] **确认域名注册商**（阿里云/腾讯云/Cloudflare/其他？联系实验室管理人员）
+- [ ] 登录域名管理后台
+- [ ] 添加 A 记录（4 条，指向 GitHub Pages IP）：
+  ```
+  类型    主机记录    值
+  A       @          185.199.108.153
+  A       @          185.199.109.153
+  A       @          185.199.110.153
+  A       @          185.199.111.153
+  ```
+- [ ] 添加 CNAME 记录：`www` → `yangjijun1992.github.io`
+- [ ] 在 GitHub Pages 设置中填入 Custom domain: `relics.tracker.com`
+- [ ] 勾选 **Enforce HTTPS**
 - [ ] 等待 DNS 生效（几分钟 ~ 48 小时）
-- [ ] 在 GitHub Pages 设置中确认 Custom domain 生效
-- [ ] 确认 HTTPS 证书自动签发
+- [ ] 确认 `https://relics.tracker.com` 可访问
 
 ---
 
