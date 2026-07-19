@@ -463,6 +463,63 @@
       border-color: var(--accent-blue);
     }
 
+    input.task-name-input, input.task-cn-input, input.assignee-input {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-primary);
+      border-radius: 3px;
+      padding: 0.1rem 0.3rem;
+      font-size: 0.8rem;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    input.task-cn-input { font-size: 0.75rem; color: var(--text-secondary); }
+    input.assignee-input { color: var(--accent-cyan); font-size: 0.75rem; width: 100%; }
+
+    input.task-name-input:hover, input.task-cn-input:hover, input.assignee-input:hover { border-color: var(--border-color); }
+    input.task-name-input:focus, input.task-cn-input:focus, input.assignee-input:focus {
+      outline: none; border-color: var(--accent-blue); background: var(--bg-primary);
+    }
+
+    .add-task-row {
+      display: flex;
+      justify-content: center;
+      padding: 0.6rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .add-task-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.9rem;
+      border: 1px dashed var(--border-color);
+      border-radius: 0.5rem;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .add-task-btn:hover { border-color: var(--accent-green); color: var(--accent-green); }
+
+    .del-task-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0.15rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      line-height: 1;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .del-task-btn:hover { color: var(--accent-red); background: rgba(239,68,68,0.1); }
+
     select.status-select {
       background: transparent;
       border: 1px solid var(--border-color);
@@ -723,16 +780,22 @@
             </div>
             ${sys.subtasks.map(t => `
               <div class="subtask-row" data-id="${t.id}">
-                <div class="id">${t.id}</div>
+                <div class="id" style="display:flex;align-items:center;gap:0.3rem">
+                  <button class="del-task-btn" title="Delete" onclick="deleteTask('${sys.id}','${t.id}')">&times;</button>
+                  <span>${t.id}</span>
+                </div>
                 <div>
-                  <div class="name">${t.name}</div>
-                  <div class="cn">${t.name_cn}</div>
+                  <input class="task-name-input" value="${t.name}" placeholder="Task name"
+                    onchange="updateTask('${sys.id}','${t.id}','name',this.value)">
+                  <input class="task-cn-input" value="${t.name_cn}" placeholder="中文名"
+                    onchange="updateTask('${sys.id}','${t.id}','name_cn',this.value)">
                 </div>
                 <div><input type="date" class="date-input" value="${t.planned_start}"
                   onchange="updateTask('${sys.id}','${t.id}','planned_start',this.value)"></div>
                 <div><input type="date" class="date-input" value="${t.planned_end}"
                   onchange="updateTask('${sys.id}','${t.id}','planned_end',this.value)"></div>
-                <div class="assignee">${t.assignee}</div>
+                <div><input class="assignee-input" value="${t.assignee}" placeholder="TBD"
+                  onchange="updateTask('${sys.id}','${t.id}','assignee',this.value)"></div>
                 <div>
                   <select class="status-select" onchange="updateTask('${sys.id}','${t.id}','status',this.value)">
                     <option value="not_started" ${t.status==='not_started'?'selected':''}>Not Started</option>
@@ -753,6 +816,9 @@
                   onchange="updateTask('${sys.id}','${t.id}','notes',this.value)"></div>
               </div>
             `).join('')}
+            <div class="add-task-row">
+              <button class="add-task-btn" onclick="addTask('${sys.id}')">+ Add Subtask</button>
+            </div>
           </div>
         `;
         container.appendChild(div);
@@ -778,6 +844,38 @@
       data.last_updated = new Date().toISOString().slice(0,19);
       renderSummary();
       renderGantt();
+      saveData();
+    }
+
+    function addTask(sysId) {
+      const sys = data.subsystems.find(s => s.id === sysId);
+      if (!sys) return;
+      const idx = sys.subtasks.length + 1;
+      const prefix = sys.id.replace('-', '');
+      const newTask = {
+        id: `${sys.id}-${String(idx).padStart(2,'0')}`,
+        name: 'New Task',
+        name_cn: '新任务',
+        planned_start: sys.planned_start,
+        planned_end: sys.planned_start,
+        status: 'not_started',
+        progress: 0,
+        assignee: 'TBD',
+        notes: ''
+      };
+      sys.subtasks.push(newTask);
+      data.last_updated = new Date().toISOString().slice(0,19);
+      render();
+      saveData();
+    }
+
+    function deleteTask(sysId, taskId) {
+      if (!confirm('Delete this subtask?')) return;
+      const sys = data.subsystems.find(s => s.id === sysId);
+      if (!sys) return;
+      sys.subtasks = sys.subtasks.filter(t => t.id !== taskId);
+      data.last_updated = new Date().toISOString().slice(0,19);
+      render();
       saveData();
     }
 
