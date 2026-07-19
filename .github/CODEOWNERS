@@ -1,6 +1,9 @@
-# RELICS Commission Tracker - Code Owners
-# 格式: <pattern> <@owner1> <@owner2> ...
+# RELICS Commission Tracker - CODEOWNERS
+# 自动生成 - 基于 commission.json 中的 github_user 字段
 # 详细说明: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# ⚠️ 待办: 收集各子系统负责人的 GitHub 用户名后，更新 commission.json 中的 github_user 字段，
+#    然后在网页端点击 "CODEOWNERS" 按钮重新生成此文件。
 
 # ============================================================
 # 项目级管理员（所有变更必须经过审核）
@@ -8,39 +11,38 @@
 *                                   @Yangjijun1992
 
 # ============================================================
-# 核心数据文件（必须由项目管理者审核）
+# 核心数据文件
 # ============================================================
 /data/commission.json                @Yangjijun1992
 /index.html                         @Yangjijun1992
 
 # ============================================================
-# 子系统负责人（按子系统分工审核）
-# 注: 请将下方的 @github-username 替换为实际 GitHub 用户名
+# 子系统负责人（基于 github_user 字段）
 # ============================================================
 
-# TPC - 时间投影室系统（负责人: 谢凌峰）
-# /data/commission.json 中 tpc 相关部分    @xielingfeng-github-username
-
 # PDS - 光子探测系统（负责人: 杨继军）
-# /data/commission.json 中 pds 相关部分    @Yangjijun1992
+/data/commission.json                @Yangjijun1992
 
 # DAQ - 数据采集系统（负责人: 蔡畅、雷阳、杨继军）
-# /data/commission.json 中 daq 相关部分    @Yangjijun1992
+/data/commission.json                @Yangjijun1992
 
-# Computing - 计算系统（负责人: 王俊）
-# /data/commission.json 中 computing 相关部分  @wangjun-github-username
+# TPC - 时间投影室系统（负责人: 谢凌峰）⚠️ 待填写
+# @TBD-xielingfeng
 
-# Cryo - 低温与循环系统（负责人: 于佳成）
-# /data/commission.json 中 cryo 相关部分    @yujicheng-github-username
+# Computing - 计算系统（负责人: 王俊）⚠️ 待填写
+# @TBD-wangjun
 
-# Muon - 缪子反符合系统（负责人: 王俊、王笑宇）
-# /data/commission.json 中 muon 相关部分    @wangjun-github-username
+# Cryo - 低温与循环系统（负责人: 于佳成）⚠️ 待填写
+# @TBD-yujicheng
 
-# Shield - 屏蔽体系统（负责人: 岳玉用）
-# /data/commission.json 中 shield 相关部分  @yueyuyong-github-username
+# Muon - 缪子反符合系统（负责人: 王俊、王笑宇）⚠️ 待填写
+# @TBD-wangjun
 
-# Facilities - 基础设施设备（负责人: 陈江宇）
-# /data/commission.json 中 fac 相关部分     @chenjiangyu-github-username
+# Shield - 屏蔽体系统（负责人: 岳玉用）⚠️ 待填写
+# @TBD-yueyuyong
+
+# Facilities - 基础设施设备（负责人: 陈江宇）⚠️ 待填写
+# @TBD-chenjiangyu
 
 # ============================================================
 # 部署相关文件（仅管理员可修改）

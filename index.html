@@ -179,6 +179,54 @@
     .push-status.ok { color: var(--accent-green); }
     .push-status.err { color: var(--accent-red); }
 
+    .github-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      font-weight: 500;
+      background: rgba(139,92,246,0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(139,92,246,0.3);
+      cursor: default;
+      vertical-align: middle;
+    }
+
+    .github-badge.pending {
+      background: rgba(234,179,8,0.12);
+      color: #facc15;
+      border-color: rgba(234,179,8,0.3);
+    }
+
+    .github-badge svg {
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+    }
+
+    .owner-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    input.gh-user-input {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #a78bfa;
+      border-radius: 3px;
+      padding: 0.1rem 0.3rem;
+      font-size: 0.65rem;
+      font-family: monospace;
+      width: 120px;
+    }
+
+    input.gh-user-input:hover { border-color: var(--border-color); }
+    input.gh-user-input:focus { outline: none; border-color: var(--accent-blue); background: var(--bg-primary); }
+
     .summary-bar {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -590,6 +638,10 @@
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
         Push to GitHub
       </button>
+      <button class="export-btn" onclick="generateCODEOWNERS()" title="根据当前负责人映射生成 CODEOWNERS 文件">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75z"/></svg>
+        CODEOWNERS
+      </button>
     </div>
     <div class="github-config" id="github-config">
       <div class="config-row">
@@ -663,7 +715,10 @@
 
     function getOverallStats() {
       let total = 0, completed = 0, inProgress = 0, blocked = 0, delayed = 0;
+      let ghTBD = 0, ghAssigned = 0;
       data.subsystems.forEach(sys => {
+        if (sys.github_user && !sys.github_user.startsWith('TBD')) ghAssigned++;
+        else ghTBD++;
         sys.subtasks.forEach(t => {
           total++;
           if (t.status === 'completed') completed++;
@@ -672,7 +727,7 @@
           else if (t.status === 'delayed') delayed++;
         });
       });
-      return { total, completed, inProgress, blocked, delayed };
+      return { total, completed, inProgress, blocked, delayed, ghTBD, ghAssigned };
     }
 
     function renderSummary() {
@@ -713,6 +768,10 @@
           <div class="label">Subsystems</div>
           <div class="value">${data.subsystems.length}</div>
         </div>
+        <div class="summary-card">
+          <div class="label">GitHub Users</div>
+          <div class="value" style="font-size:1.2rem"><span style="color:var(--accent-green)">${stats.ghAssigned}</span> / <span style="color:var(--accent-yellow)">${stats.ghTBD}</span></div>
+        </div>
       `;
     }
 
@@ -746,12 +805,23 @@
                 <h2>${sys.name}</h2>
                 <div class="cn">${sys.name_cn}</div>
                 <div class="owner">
-                  Responsible: <input class="owner-input" value="${sys.responsible}"
-                    onchange="updateSubsystem('${sys.id}','responsible',this.value)">
-                  | <input type="date" class="sys-date-input" value="${sys.planned_start}"
-                    onchange="updateSubsystem('${sys.id}','planned_start',this.value)">
-                  ~ <input type="date" class="sys-date-input" value="${sys.planned_end}"
-                    onchange="updateSubsystem('${sys.id}','planned_end',this.value)">
+                  <div class="owner-row">
+                    <span>Responsible:</span>
+                    <input class="owner-input" value="${sys.responsible}"
+                      onchange="updateSubsystem('${sys.id}','responsible',this.value)">
+                    <span class="github-badge ${sys.github_user && sys.github_user.startsWith('TBD') ? 'pending' : ''}">
+                      <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
+                      @<input class="gh-user-input" value="${sys.github_user || 'TBD'}"
+                        onchange="updateSubsystem('${sys.id}','github_user',this.value)"
+                        title="GitHub用户名（用于权限管理）">
+                    </span>
+                  </div>
+                  <div class="owner-row" style="margin-top:0.25rem">
+                    <input type="date" class="sys-date-input" value="${sys.planned_start}"
+                      onchange="updateSubsystem('${sys.id}','planned_start',this.value)">
+                    ~ <input type="date" class="sys-date-input" value="${sys.planned_end}"
+                      onchange="updateSubsystem('${sys.id}','planned_end',this.value)">
+                  </div>
                 </div>
               </div>
             </div>
@@ -916,6 +986,53 @@
 
     function toggleGithubConfig() {
       document.getElementById('github-config').classList.toggle('show');
+    }
+
+    function generateCODEOWNERS() {
+      const lines = [
+        '# RELICS Commission Tracker - CODEOWNERS',
+        '# 自动生成于: ' + new Date().toISOString().slice(0,19),
+        '# 详细说明: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners',
+        '',
+        '# ============================================================',
+        '# 项目级管理员（所有变更必须经过审核）',
+        '# ============================================================',
+        '*                                   @Yangjijun1992',
+        '',
+        '# ============================================================',
+        '# 核心数据文件',
+        '# ============================================================',
+        '/data/commission.json                @Yangjijun1992',
+        '/index.html                         @Yangjijun1992',
+        '',
+        '# ============================================================',
+        '# 子系统负责人（按 github_user 字段映射）',
+        '# ============================================================',
+      ];
+
+      data.subsystems.forEach(sys => {
+        const gh = sys.github_user || 'TBD';
+        const isTBD = gh.startsWith('TBD');
+        const marker = isTBD ? ' # ⚠️ 待填写实际GitHub用户名' : '';
+        lines.push(`# ${sys.name_cn} (${sys.responsible})`);
+        lines.push(`# @${gh}${marker}`);
+        lines.push('');
+      });
+
+      lines.push('# ============================================================');
+      lines.push('# 部署相关文件');
+      lines.push('# ============================================================');
+      lines.push('/.github/                            @Yangjijun1992');
+      lines.push('/CNAME                               @Yangjijun1992');
+
+      const content = lines.join('\n');
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'CODEOWNERS';
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     function saveGithubConfig() {
