@@ -3,7 +3,7 @@
     "name": "RELICS Experiment Commission Run",
     "description": "RELICS实验Commission Run进度跟踪",
     "pi": "PI Name",
-    "start_date": "2026-07-01",
+    "start_date": "2026-04-28",
     "end_date": "2026-12-31"
   },
   "subsystems": [
@@ -12,9 +12,42 @@
       "name": "Photon Detection System",
       "name_cn": "光子探测系统",
       "responsible": "杨继军",
-      "planned_start": "2026-07-15",
+      "planned_start": "2026-06-22",
       "planned_end": "2026-12-30",
       "subtasks": [
+        {
+          "id": "pds-pre-01",
+          "name": "PMT Selection & Arrangement",
+          "name_cn": "PMT选型与排列",
+          "planned_start": "2026-06-22",
+          "planned_end": "2026-07-25",
+          "status": "in_progress",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": "杨季军、雷阳目前开始测试光电倍增管"
+        },
+        {
+          "id": "pds-pre-02",
+          "name": "PMT Readout Circuit & Cable Fabrication",
+          "name_cn": "PMT读出电路与线缆制作",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-09-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": "杨季军联系厂商布朗定制"
+        },
+        {
+          "id": "pds-pre-03",
+          "name": "PTFE Diffusion Rod for PMT Calibration",
+          "name_cn": "标定PMT用PTFE扩散棒加工",
+          "planned_start": "2026-06-27",
+          "planned_end": "2026-07-07",
+          "status": "completed",
+          "progress": 100,
+          "assignee": "TBD",
+          "notes": "已完成，已初步测试透光性"
+        },
         {
           "id": "pds-01",
           "name": "PMT Installation & HV Testing",
@@ -115,11 +148,11 @@
           "notes": ""
         },
         {
-          "id": "pds-08",
+          "id": "pds-10",
           "name": "Cabling & Conectors",
           "name_cn": "接头与线缆",
-          "planned_start": "2026-7-10",
-          "planned_end": "2026-8-30",
+          "planned_start": "2026-07-10",
+          "planned_end": "2026-08-30",
           "status": "not_started",
           "progress": 0,
           "assignee": "TBD",
@@ -241,9 +274,119 @@
       "name": "TPC System",
       "name_cn": "时间投影室系统",
       "responsible": "谢凌峰",
-      "planned_start": "2026-07-10",
+      "planned_start": "2026-04-28",
       "planned_end": "2026-12-15",
       "subtasks": [
+        {
+          "id": "tpc-pre-01",
+          "name": "Field Cage Parts Manufacturing",
+          "name_cn": "场笼零件加工",
+          "planned_start": "2026-04-28",
+          "planned_end": "2026-07-21",
+          "status": "in_progress",
+          "progress": 55,
+          "assignee": "谢凌峰",
+          "notes": "含PEEK压板(2/2完成)、PEEK理线架(2/8)、PTFE反射壁(4/4完成)、PTFE龙骨(5/5完成)、整形环样品(8/8完成)及正式加工(0/90已开始)"
+        },
+        {
+          "id": "tpc-pre-02",
+          "name": "Electrode HV & Deformation Testing",
+          "name_cn": "场笼电极高压与形变测试",
+          "planned_start": "2026-06-12",
+          "planned_end": "2026-07-15",
+          "status": "in_progress",
+          "progress": 50,
+          "assignee": "谢凌峰",
+          "notes": "空气中测试(50%进行中)，氮气/氩气中测试待开始"
+        },
+        {
+          "id": "tpc-pre-03",
+          "name": "Liquid Level Sensor Manufacturing & Calibration",
+          "name_cn": "液位计加工与标定",
+          "planned_start": "2026-06-20",
+          "planned_end": "2026-07-25",
+          "status": "in_progress",
+          "progress": 10,
+          "assignee": "谢凌峰",
+          "notes": "加工标定容器，标定电容与液面高度关系；与厂家确认图纸"
+        },
+        {
+          "id": "tpc-pre-04",
+          "name": "Capacitive Sensor Optimization",
+          "name_cn": "电容传感器优化设计",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-08-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "温晨煜",
+          "notes": "交由温晨煜同学作为本科生科研训练"
+        },
+        {
+          "id": "tpc-pre-05",
+          "name": "Feedthrough Procurement & Testing",
+          "name_cn": "馈通采购与测试",
+          "planned_start": "2026-06-15",
+          "planned_end": "2026-09-15",
+          "status": "in_progress",
+          "progress": 5,
+          "assignee": "谢凌峰",
+          "notes": "含馈通采购(5%采购审核中)、密封性测试(08-25~09-15)、高压馈通测试(09-01~09-15)"
+        },
+        {
+          "id": "tpc-pre-06",
+          "name": "TPC Mounting Frame Design & Fabrication",
+          "name_cn": "TPC安装固定铝型材架设计+加工",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-08-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "谢凌峰",
+          "notes": ""
+        },
+        {
+          "id": "tpc-pre-07",
+          "name": "TPC-Cryostat Connection & Mounting",
+          "name_cn": "TPC与低温恒温罐连接固定",
+          "planned_start": "2026-09-15",
+          "planned_end": "2026-09-22",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "谢凌峰",
+          "notes": ""
+        },
+        {
+          "id": "tpc-pre-08",
+          "name": "Cryostat Internal Cabling",
+          "name_cn": "低温恒温罐内走线",
+          "planned_start": "2026-09-22",
+          "planned_end": "2026-09-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "谢凌峰",
+          "notes": ""
+        },
+        {
+          "id": "tpc-pre-09",
+          "name": "TPC Level Adjustment Design & Testing",
+          "name_cn": "TPC水平调整设计与测试",
+          "planned_start": "2026-09-01",
+          "planned_end": "2026-09-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "谢凌峰",
+          "notes": "需与润理进行确认"
+        },
+        {
+          "id": "tpc-pre-10",
+          "name": "Motion Feedthrough Testing",
+          "name_cn": "移动馈通测试",
+          "planned_start": "2026-09-01",
+          "planned_end": "2026-09-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "谢凌峰",
+          "notes": "移动馈通正在采购中"
+        },
         {
           "id": "tpc-01",
           "name": "Field Cage Assembly",
@@ -437,9 +580,53 @@
       "name": "Cryogenics & Circulation System",
       "name_cn": "低温与循环系统",
       "responsible": "于佳成",
-      "planned_start": "2026-07-05",
+      "planned_start": "2026-06-17",
       "planned_end": "2026-12-30",
       "subtasks": [
+        {
+          "id": "cryo-pre-01",
+          "name": "Cryostat Design & Fabrication",
+          "name_cn": "低温恒温罐设计定制",
+          "planned_start": "2026-06-17",
+          "planned_end": "2026-09-15",
+          "status": "in_progress",
+          "progress": 0,
+          "assignee": "于佳成",
+          "notes": "原始图纸已交给润理公司，工程师胡荣朝会进行跟进"
+        },
+        {
+          "id": "cryo-pre-02",
+          "name": "Overflow Chamber Design & Fabrication",
+          "name_cn": "溢流腔设计定制",
+          "planned_start": "2026-06-17",
+          "planned_end": "2026-09-15",
+          "status": "in_progress",
+          "progress": 0,
+          "assignee": "于佳成",
+          "notes": "原始图纸已交给润理公司，工程师胡荣朝会进行跟进"
+        },
+        {
+          "id": "cryo-pre-03",
+          "name": "LXe Inlet Joint Fabrication",
+          "name_cn": "液氙进液接头定制",
+          "planned_start": "2026-07-15",
+          "planned_end": "2026-09-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "于佳成",
+          "notes": "设计中"
+        },
+        {
+          "id": "cryo-pre-04",
+          "name": "LXe Inlet Pipe Fabrication",
+          "name_cn": "液氙进液管制作",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-07-15",
+          "status": "in_progress",
+          "progress": 95,
+          "assignee": "于佳成",
+          "notes": "接头选型和管路制作，将进液的内径从1.6mm扩大到2.6mm"
+        },
         {
           "id": "cryo-01",
           "name": "Cooling System Commissioning",
@@ -781,5 +968,5 @@
       ]
     }
   ],
-  "last_updated": "2026-07-19T06:16:38"
+  "last_updated": "2026-07-19T16:44:00"
 }
