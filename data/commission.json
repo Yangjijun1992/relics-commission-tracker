@@ -96,18 +96,18 @@
           "id": "pds-08",
           "name": "Noise Rate Baseline",
           "name_cn": "噪声率基线测量",
-          "planned_start": "2026-07-15",
-          "planned_end": "2026-08-10",
-          "status": "not_started",
+          "planned_start": "2026-07-10",
+          "planned_end": "2026-09-20",
+          "status": "in_progress",
           "progress": 0,
           "assignee": "TBD",
-          "notes": ""
+          "notes": "厂家给出报价"
         },
         {
           "id": "pds-09",
           "name": "PMT Base",
           "name_cn": "光电管基座生产与测试",
-          "planned_start": "2026-8-15",
+          "planned_start": "2026-07-08",
           "planned_end": "2026-10-15",
           "status": "not_started",
           "progress": 0,
@@ -125,7 +125,6 @@
           "assignee": "TBD",
           "notes": ""
         }
-
       ]
     },
     {
@@ -521,5 +520,5 @@
       ]
     }
   ],
-  "last_updated": "2026-07-19T00:00:00"
+  "last_updated": "2026-07-19T05:22:22"
 }
