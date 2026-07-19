@@ -1,0 +1,502 @@
+{
+  "project": {
+    "name": "RELICS Experiment Commission Run",
+    "description": "RELICS实验Commission Run进度跟踪",
+    "pi": "PI Name",
+    "start_date": "2026-07-01",
+    "end_date": "2026-12-31"
+  },
+  "subsystems": [
+    {
+      "id": "pds",
+      "name": "Photon Detection System",
+      "name_cn": "光子探测系统",
+      "responsible": "TBD",
+      "planned_start": "2026-07-15",
+      "planned_end": "2026-10-30",
+      "subtasks": [
+        {
+          "id": "pds-01",
+          "name": "PMT Installation & HV Testing",
+          "name_cn": "PMT安装与高压测试",
+          "planned_start": "2026-07-15",
+          "planned_end": "2026-08-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-02",
+          "name": "SiPM Array Calibration",
+          "name_cn": "SiPM阵列标定",
+          "planned_start": "2026-08-01",
+          "planned_end": "2026-08-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-03",
+          "name": "Optical Filter Installation",
+          "name_cn": "光学滤光片安装",
+          "planned_start": "2026-08-15",
+          "planned_end": "2026-08-25",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-04",
+          "name": "Dark Count Rate Measurement",
+          "name_cn": "暗计数率测量",
+          "planned_start": "2026-08-25",
+          "planned_end": "2026-09-05",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-05",
+          "name": "Timing Calibration",
+          "name_cn": "时间标定",
+          "planned_start": "2026-09-05",
+          "planned_end": "2026-09-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-06",
+          "name": "Light Yield Uniformity Mapping",
+          "name_cn": "光产额均匀性测量",
+          "planned_start": "2026-09-15",
+          "planned_end": "2026-09-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-07",
+          "name": "Afterpulsing Characterization",
+          "name_cn": "后脉冲特性测量",
+          "planned_start": "2026-09-30",
+          "planned_end": "2026-10-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-08",
+          "name": "Noise Rate Baseline",
+          "name_cn": "噪声率基线测量",
+          "planned_start": "2026-10-15",
+          "planned_end": "2026-10-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "daq",
+      "name": "DAQ System",
+      "name_cn": "数据采集系统",
+      "responsible": "TBD",
+      "planned_start": "2026-07-01",
+      "planned_end": "2026-11-30",
+      "subtasks": [
+        {
+          "id": "daq-01",
+          "name": "Front-end Electronics Commissioning",
+          "name_cn": "前端电子学调试",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-07-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-02",
+          "name": "Trigger System Setup",
+          "name_cn": "触发系统搭建",
+          "planned_start": "2026-07-30",
+          "planned_end": "2026-08-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-03",
+          "name": "Data Acquisition Software Deployment",
+          "name_cn": "数据采集软件部署",
+          "planned_start": "2026-08-15",
+          "planned_end": "2026-09-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-04",
+          "name": "Network Infrastructure Setup",
+          "name_cn": "网络基础设施搭建",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-07-20",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-05",
+          "name": "Storage System Validation",
+          "name_cn": "存储系统验证",
+          "planned_start": "2026-09-01",
+          "planned_end": "2026-09-20",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-06",
+          "name": "Online Monitoring Tools",
+          "name_cn": "在线监控工具",
+          "planned_start": "2026-09-20",
+          "planned_end": "2026-10-10",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-07",
+          "name": "Calibration Run Framework",
+          "name_cn": "标定运行框架",
+          "planned_start": "2026-10-10",
+          "planned_end": "2026-11-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "daq-08",
+          "name": "Data Quality Monitoring",
+          "name_cn": "数据质量监控",
+          "planned_start": "2026-11-01",
+          "planned_end": "2026-11-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "tpc",
+      "name": "TPC System",
+      "name_cn": "时间投影室系统",
+      "responsible": "TBD",
+      "planned_start": "2026-07-10",
+      "planned_end": "2026-12-15",
+      "subtasks": [
+        {
+          "id": "tpc-01",
+          "name": "Field Cage Assembly",
+          "name_cn": "场笼组装",
+          "planned_start": "2026-07-10",
+          "planned_end": "2026-07-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "tpc-02",
+          "name": "Gas System Commissioning",
+          "name_cn": "气体系统调试",
+          "planned_start": "2026-07-30",
+          "planned_end": "2026-08-20",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "tpc-03",
+          "name": "Wire Plane Installation",
+          "name_cn": "丝平面安装",
+          "planned_start": "2026-08-20",
+          "planned_end": "2026-09-10",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "tpc-04",
+          "name": "High Voltage Conditioning",
+          "name_cn": "高压老练",
+          "planned_start": "2026-09-10",
+          "planned_end": "2026-10-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "tpc-05",
+          "name": "Electric Field Mapping",
+          "name_cn": "电场分布测量",
+          "planned_start": "2026-10-15",
+          "planned_end": "2026-10-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "tpc-06",
+          "name": "Electron Drift Calibration",
+          "name_cn": "电子漂移标定",
+          "planned_start": "2026-10-30",
+          "planned_end": "2026-11-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "tpc-07",
+          "name": "Gas Purity Validation",
+          "name_cn": "气体纯度验证",
+          "planned_start": "2026-11-15",
+          "planned_end": "2026-12-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "tpc-08",
+          "name": "S2 Signal Characterization",
+          "name_cn": "S2信号特性测量",
+          "planned_start": "2026-12-01",
+          "planned_end": "2026-12-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "computing",
+      "name": "Computing System",
+      "name_cn": "计算系统",
+      "responsible": "TBD",
+      "planned_start": "2026-07-01",
+      "planned_end": "2026-11-15",
+      "subtasks": [
+        {
+          "id": "comp-01",
+          "name": "Offline Processing Framework",
+          "name_cn": "离线处理框架",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-07-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "comp-02",
+          "name": "Database Setup",
+          "name_cn": "数据库搭建",
+          "planned_start": "2026-07-01",
+          "planned_end": "2026-07-20",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "comp-03",
+          "name": "Batch System Configuration",
+          "name_cn": "批处理系统配置",
+          "planned_start": "2026-07-20",
+          "planned_end": "2026-08-10",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "comp-04",
+          "name": "Analysis Environment Setup",
+          "name_cn": "分析环境搭建",
+          "planned_start": "2026-08-10",
+          "planned_end": "2026-08-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "comp-05",
+          "name": "Data Transfer Pipeline",
+          "name_cn": "数据传输管道",
+          "planned_start": "2026-08-30",
+          "planned_end": "2026-09-20",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "comp-06",
+          "name": "Monitoring Dashboard",
+          "name_cn": "监控仪表盘",
+          "planned_start": "2026-09-20",
+          "planned_end": "2026-10-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "comp-07",
+          "name": "Backup System",
+          "name_cn": "备份系统",
+          "planned_start": "2026-10-15",
+          "planned_end": "2026-10-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "comp-08",
+          "name": "Resource Allocation & Validation",
+          "name_cn": "资源分配与验证",
+          "planned_start": "2026-10-30",
+          "planned_end": "2026-11-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "id": "cryo",
+      "name": "Cryogenics & Circulation System",
+      "name_cn": "低温与循环系统",
+      "responsible": "TBD",
+      "planned_start": "2026-07-05",
+      "planned_end": "2026-12-01",
+      "subtasks": [
+        {
+          "id": "cryo-01",
+          "name": "Cooling System Commissioning",
+          "name_cn": "冷却系统调试",
+          "planned_start": "2026-07-05",
+          "planned_end": "2026-07-25",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "cryo-02",
+          "name": "Temperature Sensor Calibration",
+          "name_cn": "温度传感器标定",
+          "planned_start": "2026-07-25",
+          "planned_end": "2026-08-10",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "cryo-03",
+          "name": "Circulation Loop Testing",
+          "name_cn": "循环回路测试",
+          "planned_start": "2026-08-10",
+          "planned_end": "2026-08-30",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "cryo-04",
+          "name": "Insulation Verification",
+          "name_cn": "保温层验证",
+          "planned_start": "2026-08-30",
+          "planned_end": "2026-09-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "cryo-05",
+          "name": "Safety Interlocks Setup",
+          "name_cn": "安全联锁设置",
+          "planned_start": "2026-09-15",
+          "planned_end": "2026-10-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "cryo-06",
+          "name": "Dewar Fill Procedures",
+          "name_cn": "杜瓦填充流程",
+          "planned_start": "2026-10-01",
+          "planned_end": "2026-10-20",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "cryo-07",
+          "name": "Thermal Stability Testing",
+          "name_cn": "热稳定性测试",
+          "planned_start": "2026-10-20",
+          "planned_end": "2026-11-15",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "cryo-08",
+          "name": "Emergency Procedures Validation",
+          "name_cn": "应急流程验证",
+          "planned_start": "2026-11-15",
+          "planned_end": "2026-12-01",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        }
+      ]
+    }
+  ],
+  "last_updated": "2026-07-19T00:00:00"
+}
