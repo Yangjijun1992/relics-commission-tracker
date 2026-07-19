@@ -1,0 +1,49 @@
+# RELICS Commission Tracker - Code Owners
+# 格式: <pattern> <@owner1> <@owner2> ...
+# 详细说明: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# ============================================================
+# 项目级管理员（所有变更必须经过审核）
+# ============================================================
+*                                   @Yangjijun1992
+
+# ============================================================
+# 核心数据文件（必须由项目管理者审核）
+# ============================================================
+/data/commission.json                @Yangjijun1992
+/index.html                         @Yangjijun1992
+
+# ============================================================
+# 子系统负责人（按子系统分工审核）
+# 注: 请将下方的 @github-username 替换为实际 GitHub 用户名
+# ============================================================
+
+# TPC - 时间投影室系统（负责人: 谢凌峰）
+# /data/commission.json 中 tpc 相关部分    @xielingfeng-github-username
+
+# PDS - 光子探测系统（负责人: 杨继军）
+# /data/commission.json 中 pds 相关部分    @Yangjijun1992
+
+# DAQ - 数据采集系统（负责人: 蔡畅、雷阳、杨继军）
+# /data/commission.json 中 daq 相关部分    @Yangjijun1992
+
+# Computing - 计算系统（负责人: 王俊）
+# /data/commission.json 中 computing 相关部分  @wangjun-github-username
+
+# Cryo - 低温与循环系统（负责人: 于佳成）
+# /data/commission.json 中 cryo 相关部分    @yujicheng-github-username
+
+# Muon - 缪子反符合系统（负责人: 王俊、王笑宇）
+# /data/commission.json 中 muon 相关部分    @wangjun-github-username
+
+# Shield - 屏蔽体系统（负责人: 岳玉用）
+# /data/commission.json 中 shield 相关部分  @yueyuyong-github-username
+
+# Facilities - 基础设施设备（负责人: 陈江宇）
+# /data/commission.json 中 fac 相关部分     @chenjiangyu-github-username
+
+# ============================================================
+# 部署相关文件（仅管理员可修改）
+# ============================================================
+/.github/                            @Yangjijun1992
+/CNAME                               @Yangjijun1992
