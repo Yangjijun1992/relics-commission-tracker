@@ -26,23 +26,23 @@
 # DAQ - 数据采集系统（负责人: 蔡畅、雷阳、杨继军）
 /data/commission.json                @Yangjijun1992
 
-# TPC - 时间投影室系统（负责人: 谢凌峰）⚠️ 待填写
-# @TBD-xielingfeng
+# TPC - 时间投影室系统（负责人: 谢凌峰）
+/data/commission.json                @LingFeng-Xie
 
-# Computing - 计算系统（负责人: 王俊）⚠️ 待填写
-# @TBD-wangjun
+# COMPUTING - 计算系统（负责人: 王俊）
+/data/commission.json                @elphen-wang
 
-# Cryo - 低温与循环系统（负责人: 于佳成）⚠️ 待填写
-# @TBD-yujicheng
+# CRYO - 低温与循环系统（负责人: 于佳成、李凯航）
+/data/commission.json                @TBD-yujicheng
 
-# Muon - 缪子反符合系统（负责人: 王俊、王笑宇）⚠️ 待填写
-# @TBD-wangjun
+# MUON - 缪子反符合系统（负责人: 王俊、王笑宇）
+/data/commission.json                @elphen-wang
 
-# Shield - 屏蔽体系统（负责人: 岳玉用）⚠️ 待填写
-# @TBD-yueyuyong
+# SHIELD - 屏蔽体系统（负责人: 岳玉用）
+/data/commission.json                @TBD-yueyuyong
 
-# Facilities - 基础设施设备（负责人: 陈江宇）⚠️ 待填写
-# @TBD-chenjiangyu
+# FAC - 基础设施设备（负责人: 陈江宇）
+/data/commission.json                @TBD-chenjiangyu
 
 # ============================================================
 # 部署相关文件（仅管理员可修改）

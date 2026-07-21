@@ -1,0 +1,43 @@
+name: Generate CODEOWNERS
+
+on:
+  push:
+    paths:
+      - 'data/commission.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      
+      - name: Generate CODEOWNERS
+        run: python scripts/generate_codeowners.py
+      
+      - name: Check for changes
+        id: check
+        run: |
+          if git diff --quiet .github/CODEOWNERS; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Commit changes
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .github/CODEOWNERS
+          git commit -m "chore: auto-generate CODEOWNERS from commission.json"
+          git push

@@ -251,6 +251,44 @@
 
     .main { padding: 1.5rem 2rem; }
 
+    .search-bar {
+      padding: 1rem 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .search-bar input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+
+    .search-bar select {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .search-bar select:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+
     .subsystem {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -474,6 +512,26 @@
 
     .gantt-bar:hover { opacity: 1; }
 
+    .gantt-today {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent-red);
+      z-index: 10;
+    }
+
+    .gantt-today::before {
+      content: '今天';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      color: var(--accent-red);
+      white-space: nowrap;
+    }
+
     .legend {
       display: flex;
       gap: 1.5rem;
@@ -674,6 +732,21 @@
 
   <div class="summary-bar" id="summary"></div>
 
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="搜索任务名称、负责人、状态..." oninput="filterTasks()">
+    <select id="subsystem-filter" onchange="filterTasks()">
+      <option value="">所有子系统</option>
+    </select>
+    <select id="status-filter" onchange="filterTasks()">
+      <option value="">所有状态</option>
+      <option value="not_started">未开始</option>
+      <option value="in_progress">进行中</option>
+      <option value="completed">已完成</option>
+      <option value="delayed">延迟</option>
+      <option value="cancelled">取消</option>
+    </select>
+  </div>
+
   <div class="main" id="subsystem-list"></div>
 
   <div class="gantt-section">
@@ -699,6 +772,7 @@
         console.error('Failed to load commission.json:', e);
         return;
       }
+      populateSubsystemFilter();
       render();
     }
 
@@ -706,6 +780,46 @@
       renderSummary();
       renderSubsystems();
       renderGantt();
+    }
+
+    function filterTasks() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const statusFilter = document.getElementById('status-filter').value;
+      const subsystemFilter = document.getElementById('subsystem-filter').value;
+      
+      const filteredData = {
+        ...data,
+        subsystems: data.subsystems.filter(sys => {
+          if (subsystemFilter && sys.id !== subsystemFilter) return false;
+          return true;
+        }).map(sys => ({
+          ...sys,
+          subtasks: sys.subtasks.filter(task => {
+            const matchesSearch = !searchTerm || 
+              task.name.toLowerCase().includes(searchTerm) ||
+              task.name_cn.toLowerCase().includes(searchTerm) ||
+              task.assignee.toLowerCase().includes(searchTerm) ||
+              task.id.toLowerCase().includes(searchTerm);
+            
+            const matchesStatus = !statusFilter || task.status === statusFilter;
+            
+            return matchesSearch && matchesStatus;
+          })
+        })).filter(sys => sys.subtasks.length > 0)
+      };
+      
+      renderSubsystems(filteredData);
+      renderGantt(filteredData);
+    }
+
+    function populateSubsystemFilter() {
+      const select = document.getElementById('subsystem-filter');
+      data.subsystems.forEach(sys => {
+        const option = document.createElement('option');
+        option.value = sys.id;
+        option.textContent = `${sys.name_cn} (${sys.name})`;
+        select.appendChild(option);
+      });
     }
 
     function getSubsystemProgress(sys) {
@@ -789,11 +903,11 @@
       return '#475569';
     }
 
-    function renderSubsystems() {
+    function renderSubsystems(filteredData = data) {
       const container = document.getElementById('subsystem-list');
       container.innerHTML = '';
 
-      data.subsystems.forEach((sys, si) => {
+      filteredData.subsystems.forEach((sys, si) => {
         const prog = getSubsystemProgress(sys);
         const div = document.createElement('div');
         div.className = 'subsystem';
@@ -1136,12 +1250,12 @@
       }
     });
 
-    function renderGantt() {
+    function renderGantt(filteredData = data) {
       const chart = document.getElementById('gantt-chart');
       const legendEl = document.getElementById('gantt-legend');
 
       const allDates = [];
-      data.subsystems.forEach(sys => {
+      filteredData.subsystems.forEach(sys => {
         allDates.push(new Date(sys.planned_start));
         allDates.push(new Date(sys.planned_end));
         sys.subtasks.forEach(t => {
@@ -1166,7 +1280,14 @@
 
       const monthsHtml = '<div class="gantt-months">' + months.map(m => `<div class="month">${m}</div>`).join('') + '</div>';
 
-      const rowsHtml = data.subsystems.map((sys, si) => {
+      // Add today line
+      const today = new Date();
+      const todayPos = ((today - minDate) / (totalDays * 86400000)) * 100;
+      const todayHtml = todayPos >= 0 && todayPos <= 100 
+        ? `<div class="gantt-today" style="left:${todayPos}%"></div>` 
+        : '';
+
+      const rowsHtml = filteredData.subsystems.map((sys, si) => {
         const color = COLORS[si % COLORS.length];
         const sysStart = new Date(sys.planned_start);
         const sysEnd = new Date(sys.planned_end);
@@ -1201,9 +1322,9 @@
         `;
       }).join('');
 
-      chart.innerHTML = monthsHtml + rowsHtml;
+      chart.innerHTML = monthsHtml + todayHtml + rowsHtml;
 
-      legendEl.innerHTML = data.subsystems.map((sys, si) =>
+      legendEl.innerHTML = filteredData.subsystems.map((sys, si) =>
         `<div class="legend-item"><div class="legend-dot" style="background:${COLORS[si%COLORS.length]}"></div>${sys.name}</div>`
       ).join('');
     }
