@@ -173,11 +173,11 @@
           "id": "daq-01",
           "name": "Front-end Electronics Commissioning",
           "name_cn": "前端电子学调试",
-          "planned_start": "2026-07-01",
-          "planned_end": "2026-07-30",
+          "planned_start": "2026-10-30",
+          "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ ",
           "notes": ""
         },
         {
@@ -188,8 +188,8 @@
           "planned_end": "2026-08-15",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "assignee": "王笑宇",
+          "notes": "暂无此计划，后续补充"
         },
         {
           "id": "daq-03",
@@ -197,10 +197,10 @@
           "name_cn": "数据采集软件部署",
           "planned_start": "2026-08-15",
           "planned_end": "2026-09-01",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "CC",
+          "notes": "已经在原型机上验证整个DAQ系统"
         },
         {
           "id": "daq-04",
@@ -208,43 +208,43 @@
           "name_cn": "网络基础设施搭建",
           "planned_start": "2026-07-01",
           "planned_end": "2026-07-20",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "雷阳",
+          "notes": "DAQ 服务器IP分配，已完成"
         },
         {
           "id": "daq-05",
           "name": "Storage System Validation",
           "name_cn": "存储系统验证",
           "planned_start": "2026-09-01",
-          "planned_end": "2026-09-20",
+          "planned_end": "2026-12-20",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "assignee": "雷阳、王俊",
+          "notes": "有待完善"
         },
         {
           "id": "daq-06",
           "name": "Online Monitoring Tools",
           "name_cn": "在线监控工具",
           "planned_start": "2026-09-20",
-          "planned_end": "2026-10-10",
+          "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
           "assignee": "TBD",
-          "notes": ""
+          "notes": "暂无此计划，后续补充"
         },
         {
           "id": "daq-07",
           "name": "Calibration Run Framework",
           "name_cn": "标定运行框架",
           "planned_start": "2026-10-10",
-          "planned_end": "2026-11-01",
+          "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "assignee": "蔡畅",
+          "notes": "有待完善"
         },
         {
           "id": "daq-08",
@@ -254,15 +254,15 @@
           "planned_end": "2026-11-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "assignee": "",
+          "notes": "暂无此计划，后续补充"
         },
         {
           "id": "daq-09",
           "name": "Data Processing Pipeline Architecture",
           "name_cn": "数据处理流程架构",
           "planned_start": "2026-07-01",
-          "planned_end": "2026-07-31",
+          "planned_end": "2026-11-30",
           "status": "not_started",
           "progress": 0,
           "assignee": "TBD",
@@ -283,11 +283,11 @@
           "id": "daq-11",
           "name": "Database Setup",
           "name_cn": "数据库搭建",
-          "planned_start": "2026-07-15",
-          "planned_end": "2026-08-15",
+          "planned_start": "2026-10-15",
+          "planned_end": "2026-12-31",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "杨继军，雷阳",
           "notes": ""
         },
         {
@@ -296,20 +296,20 @@
           "name_cn": "服务器配置",
           "planned_start": "2026-07-15",
           "planned_end": "2026-08-15",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "in_progress",
+          "progress": 48,
+          "assignee": "蔡畅、赵一飞",
+          "notes": "DAQ部分默认已经配置好；数据分析部分后续追踪"
         },
         {
           "id": "daq-13",
           "name": "Hardware Space Planning",
           "name_cn": "硬件空间规划",
-          "planned_start": "2026-07-01",
-          "planned_end": "2026-07-31",
+          "planned_start": "2026-07-21",
+          "planned_end": "2026-10-01",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "杨继军",
           "notes": ""
         },
         {
@@ -317,10 +317,10 @@
           "name": "Data Storage Format Definition",
           "name_cn": "数据存储格式定义",
           "planned_start": "2026-07-15",
-          "planned_end": "2026-08-15",
+          "planned_end": "2026-10-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "蔡畅",
           "notes": ""
         }
       ],
@@ -448,88 +448,88 @@
           "id": "tpc-01",
           "name": "Field Cage Assembly",
           "name_cn": "场笼组装",
-          "planned_start": "2026-07-10",
-          "planned_end": "2026-07-30",
+          "planned_start": "2026-11-10",
+          "planned_end": "2026-11-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "谢凌峰，陈江宇",
           "notes": ""
         },
         {
           "id": "tpc-02",
           "name": "Gas System Commissioning",
           "name_cn": "气体系统调试",
-          "planned_start": "2026-07-30",
-          "planned_end": "2026-08-20",
+          "planned_start": "2026-11-20",
+          "planned_end": "2026-11-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "杨继军",
           "notes": ""
         },
         {
           "id": "tpc-03",
           "name": "Wire Plane Installation",
           "name_cn": "丝平面安装",
-          "planned_start": "2026-08-20",
-          "planned_end": "2026-09-10",
+          "planned_start": "2026-11-01",
+          "planned_end": "2026-11-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "谢凌峰、陈江宇、杨继军",
           "notes": ""
         },
         {
           "id": "tpc-04",
-          "name": "High Voltage Conditioning",
-          "name_cn": "高压老练",
-          "planned_start": "2026-09-10",
-          "planned_end": "2026-10-15",
+          "name": "High Voltage Test",
+          "name_cn": "高压测试",
+          "planned_start": "2026-12-10",
+          "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "谢凌峰",
           "notes": ""
         },
         {
           "id": "tpc-05",
           "name": "Electric Field Mapping",
           "name_cn": "电场分布测量",
-          "planned_start": "2026-10-15",
-          "planned_end": "2026-10-30",
+          "planned_start": "2027-01-15",
+          "planned_end": "2027-02-28",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "杨继军、谢凌峰",
           "notes": ""
         },
         {
           "id": "tpc-06",
-          "name": "Electron Drift Calibration",
-          "name_cn": "电子漂移标定",
-          "planned_start": "2026-10-30",
-          "planned_end": "2026-11-15",
+          "name": "Electron Life Time Monitoring",
+          "name_cn": "电子寿命",
+          "planned_start": "2027-01-30",
+          "planned_end": "2027-02-28",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "谢凌峰、于佳成",
           "notes": ""
         },
         {
           "id": "tpc-07",
           "name": "Gas Purity Validation",
           "name_cn": "气体纯度验证",
-          "planned_start": "2026-11-15",
-          "planned_end": "2026-12-01",
+          "planned_start": "2027-01-15",
+          "planned_end": "2027-02-28",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "于佳成",
           "notes": ""
         },
         {
           "id": "tpc-08",
           "name": "S2 Signal Characterization",
-          "name_cn": "S2信号特性测量",
-          "planned_start": "2026-12-01",
-          "planned_end": "2026-12-15",
+          "name_cn": "S2信号特征",
+          "planned_start": "2027-01-01",
+          "planned_end": "2027-02-28",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "赵一飞",
           "notes": ""
         }
       ],
@@ -547,33 +547,33 @@
           "id": "comp-01",
           "name": "Offline Processing Framework",
           "name_cn": "离线处理框架",
-          "planned_start": "2026-07-01",
-          "planned_end": "2026-07-30",
+          "planned_start": "2026-09-15",
+          "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "赵一飞、王笑宇",
           "notes": ""
         },
         {
           "id": "comp-02",
           "name": "Database Setup",
           "name_cn": "数据库搭建",
-          "planned_start": "2026-07-01",
-          "planned_end": "2026-07-20",
+          "planned_start": "2026-09-10",
+          "planned_end": "2026-11-25",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "雷阳、杨继军",
           "notes": ""
         },
         {
           "id": "comp-03",
           "name": "Batch System Configuration",
           "name_cn": "批处理系统配置",
-          "planned_start": "2026-07-20",
-          "planned_end": "2026-08-10",
+          "planned_start": "2026-10-20",
+          "planned_end": "2026-12-31",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "蔡畅",
           "notes": ""
         },
         {
@@ -584,7 +584,7 @@
           "planned_end": "2026-08-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "赵一飞、雷阳",
           "notes": ""
         },
         {
@@ -592,10 +592,10 @@
           "name": "Data Transfer Pipeline",
           "name_cn": "数据传输管道",
           "planned_start": "2026-08-30",
-          "planned_end": "2026-09-20",
+          "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王俊、蔡畅",
           "notes": ""
         },
         {
@@ -603,10 +603,10 @@
           "name": "Monitoring Dashboard",
           "name_cn": "监控仪表盘",
           "planned_start": "2026-09-20",
-          "planned_end": "2026-10-15",
+          "planned_end": "2027-02-28",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王俊",
           "notes": ""
         },
         {
@@ -614,10 +614,10 @@
           "name": "Backup System",
           "name_cn": "备份系统",
           "planned_start": "2026-10-15",
-          "planned_end": "2026-10-30",
+          "planned_end": "2027-02-27",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王俊、蔡畅",
           "notes": ""
         },
         {
@@ -625,10 +625,10 @@
           "name": "Resource Allocation & Validation",
           "name_cn": "资源分配与验证",
           "planned_start": "2026-10-30",
-          "planned_end": "2026-11-15",
+          "planned_end": "2027-03-31",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王俊",
           "notes": ""
         }
       ],
@@ -638,7 +638,7 @@
       "id": "cryo",
       "name": "Cryogenics & Circulation System",
       "name_cn": "低温与循环系统",
-      "responsible": "于佳成",
+      "responsible": "于佳成、李凯航",
       "planned_start": "2026-06-17",
       "planned_end": "2026-12-30",
       "subtasks": [
@@ -690,33 +690,33 @@
           "id": "cryo-01",
           "name": "Cooling System Commissioning",
           "name_cn": "冷却系统调试",
-          "planned_start": "2026-07-05",
-          "planned_end": "2026-07-25",
+          "planned_start": "2026-11-05",
+          "planned_end": "2026-12-31",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航",
           "notes": ""
         },
         {
           "id": "cryo-02",
           "name": "Temperature Sensor Calibration",
           "name_cn": "温度传感器标定",
-          "planned_start": "2026-07-25",
-          "planned_end": "2026-08-10",
+          "planned_start": "2026-10-30",
+          "planned_end": "2026-11-29",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航",
           "notes": ""
         },
         {
           "id": "cryo-03",
           "name": "Circulation Loop Testing",
           "name_cn": "循环回路测试",
-          "planned_start": "2026-08-10",
-          "planned_end": "2026-08-30",
+          "planned_start": "2026-11-10",
+          "planned_end": "2026-12-10",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航、于佳成",
           "notes": ""
         },
         {
@@ -727,7 +727,7 @@
           "planned_end": "2026-09-15",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航",
           "notes": ""
         },
         {
@@ -738,29 +738,29 @@
           "planned_end": "2026-10-01",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航",
           "notes": ""
         },
         {
           "id": "cryo-06",
-          "name": "Dewar Fill Procedures",
-          "name_cn": "杜瓦填充流程",
+          "name": "LN2 Dewar Fill Procedures",
+          "name_cn": "液氮杜瓦填充流程",
           "planned_start": "2026-10-01",
-          "planned_end": "2026-10-20",
+          "planned_end": "2026-12-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航",
           "notes": ""
         },
         {
           "id": "cryo-07",
           "name": "Thermal Stability Testing",
           "name_cn": "热稳定性测试",
-          "planned_start": "2026-10-20",
-          "planned_end": "2026-11-15",
+          "planned_start": "2026-11-20",
+          "planned_end": "2027-01-14",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航、于佳成",
           "notes": ""
         },
         {
@@ -768,10 +768,10 @@
           "name": "Emergency Procedures Validation",
           "name_cn": "应急流程验证",
           "planned_start": "2026-11-15",
-          "planned_end": "2026-12-01",
+          "planned_end": "2027-01-20",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "李凯航",
           "notes": ""
         }
       ],
@@ -789,33 +789,33 @@
           "id": "muon-01",
           "name": "Scintillator Panel Installation",
           "name_cn": "闪烁体板安装",
-          "planned_start": "2026-07-20",
-          "planned_end": "2026-08-15",
+          "planned_start": "2026-11-20",
+          "planned_end": "2027-01-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王笑宇",
           "notes": ""
         },
         {
           "id": "muon-02",
-          "name": "PMT Coupling & HV Test",
+          "name": "SiPM Coupling & Readout Test",
           "name_cn": "PMT耦合与高压测试",
           "planned_start": "2026-08-15",
-          "planned_end": "2026-09-01",
+          "planned_end": "2026-02-28",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王笑宇",
           "notes": ""
         },
         {
           "id": "muon-03",
           "name": "Trigger Logic Setup",
-          "name_cn": "触发逻辑搭建",
+          "name_cn": "触发逻辑部署",
           "planned_start": "2026-09-01",
-          "planned_end": "2026-09-20",
+          "planned_end": "2026-03-10",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王笑宇",
           "notes": ""
         },
         {
@@ -823,10 +823,10 @@
           "name": "Muon Tagging Efficiency Calibration",
           "name_cn": "缪子标记效率标定",
           "planned_start": "2026-09-20",
-          "planned_end": "2026-10-10",
+          "planned_end": "2026-03-29",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王笑宇",
           "notes": ""
         },
         {
@@ -845,10 +845,10 @@
           "name": "Timing Sync with TPC",
           "name_cn": "与TPC时间同步",
           "planned_start": "2026-10-30",
-          "planned_end": "2026-11-15",
+          "planned_end": "2026-03-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王笑宇、雷阳",
           "notes": ""
         },
         {
@@ -856,7 +856,18 @@
           "name": "Background Rate Baseline",
           "name_cn": "本底率基线测量",
           "planned_start": "2026-11-15",
-          "planned_end": "2026-11-30",
+          "planned_end": "2026-02-10",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "王笑宇",
+          "notes": ""
+        },
+        {
+          "id": "muon-08",
+          "name": "New Task",
+          "name_cn": "新任务",
+          "planned_start": "2026-07-20",
+          "planned_end": "2026-07-20",
           "status": "not_started",
           "progress": 0,
           "assignee": "TBD",
@@ -875,13 +886,13 @@
       "subtasks": [
         {
           "id": "shield-01",
-          "name": "Lead Shielding Assembly",
+          "name": "Shielding Assembly",
           "name_cn": "铅屏蔽组装",
           "planned_start": "2026-07-10",
-          "planned_end": "2026-08-10",
+          "planned_end": "2027-02-28",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "岳玉用",
           "notes": ""
         },
         {
@@ -889,7 +900,7 @@
           "name": "Polyethylene Layer Installation",
           "name_cn": "聚乙烯层安装",
           "planned_start": "2026-08-10",
-          "planned_end": "2026-08-30",
+          "planned_end": "2026-02-28",
           "status": "not_started",
           "progress": 0,
           "assignee": "TBD",
@@ -921,11 +932,11 @@
           "id": "shield-05",
           "name": "Background Simulation Validation",
           "name_cn": "本底模拟验证",
-          "planned_start": "2026-09-30",
-          "planned_end": "2026-10-15",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
+          "planned_start": "2026-07-21",
+          "planned_end": "2026-08-10",
+          "status": "in_progress",
+          "progress": 29,
+          "assignee": "岳玉用",
           "notes": ""
         }
       ],
@@ -945,10 +956,10 @@
           "name_cn": "洁净间认证",
           "planned_start": "2026-07-01",
           "planned_end": "2026-07-20",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "李圣超",
+          "notes": "西湖大学洁净间"
         },
         {
           "id": "fac-02",
@@ -956,21 +967,21 @@
           "name_cn": "供电系统调试",
           "planned_start": "2026-07-20",
           "planned_end": "2026-08-10",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "杨继军、李圣超",
+          "notes": "西湖大学实验室"
         },
         {
           "id": "fac-03",
           "name": "HV Safety System Validation",
           "name_cn": "高压安全系统验证",
           "planned_start": "2026-08-10",
-          "planned_end": "2026-08-30",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "planned_end": "2026-10-30",
+          "status": "completed",
+          "progress": 100,
+          "assignee": "杨继军",
+          "notes": "西湖大学实验室"
         },
         {
           "id": "fac-04",
@@ -978,21 +989,10 @@
           "name_cn": "通风与空调系统",
           "planned_start": "2026-08-30",
           "planned_end": "2026-09-20",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
-        },
-        {
-          "id": "fac-05",
-          "name": "Water System Commissioning",
-          "name_cn": "水系统调试",
-          "planned_start": "2026-09-20",
-          "planned_end": "2026-10-15",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "杨继军、李圣超",
+          "notes": "西湖大学实验室"
         },
         {
           "id": "fac-06",
@@ -1000,10 +1000,10 @@
           "name_cn": "消防与气体检测",
           "planned_start": "2026-10-15",
           "planned_end": "2026-11-01",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "杨继军",
+          "notes": "西湖大学实验室"
         },
         {
           "id": "fac-07",
@@ -1013,23 +1013,23 @@
           "planned_end": "2026-11-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "assignee": "李圣超、杨继军",
+          "notes": "西湖大学实验室"
         },
         {
           "id": "fac-08",
           "name": "Overall Integration Test",
           "name_cn": "整体联调测试",
-          "planned_start": "2026-11-30",
-          "planned_end": "2026-12-01",
+          "planned_start": "2027-02-28",
+          "planned_end": "2027-03-30",
           "status": "not_started",
           "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "assignee": "杨继军",
+          "notes": "西湖大学实验室"
         }
       ],
       "github_user": "TBD-chenjiangyu"
     }
   ],
-  "last_updated": "2026-07-21T05:54:47"
+  "last_updated": "2026-07-21T07:12:50"
 }
