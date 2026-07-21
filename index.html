@@ -359,6 +359,45 @@
 
     .subsystem.open .toggle-icon { transform: rotate(180deg); }
 
+    .gantt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: all 0.15s;
+    }
+
+    .gantt-btn:hover { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .gantt-btn.active { border-color: var(--accent-blue); color: var(--accent-blue); background: rgba(59,130,246,0.1); }
+
+    .sort-btn-wrap {
+      display: inline-flex;
+      margin-left: auto;
+    }
+
+    .sort-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .sort-btn:hover { border-color: var(--accent-purple); color: var(--accent-purple); }
+
     .subsystem-body {
       display: none;
       border-top: 1px solid var(--border-color);
@@ -486,7 +525,7 @@
     }
 
     .gantt-label {
-      width: 150px;
+      width: 180px;
       font-size: 0.7rem;
       color: var(--text-secondary);
       flex-shrink: 0;
@@ -953,10 +992,23 @@
 
   <div class="main" id="subsystem-list"></div>
 
-  <div class="gantt-section">
-    <h2>Gantt Timeline</h2>
+  <div class="gantt-section" id="gantt-section">
+    <div class="header-row">
+      <h2>Gantt Timeline <span id="gantt-sys-name" style="font-weight:400;color:var(--text-secondary)"></span></h2>
+      <button class="clear-btn" id="gantt-clear-btn" onclick="clearGantt()" style="display:none">✕ 关闭</button>
+      <span class="sort-btn-wrap" id="sort-btn-wrap" style="display:none">
+        <button class="sort-btn" onclick="sortTasksByTime()" title="按时间先后重新排列任务ID序号">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M8.75 10.75a.75.75 0 001.5 0V4.56l1.22 1.22a.75.75 0 101.06-1.06l-2.5-2.5a.75.75 0 00-1.06 0l-2.5 2.5a.75.75 0 001.06 1.06l1.22-1.22v6.19zM6.5 1.75a.75.75 0 00-.75.75v6.19L4.53 7.47a.75.75 0 00-1.06 1.06l2.5 2.5a.75.75 0 001.06 0l2.5-2.5a.75.75 0 10-1.06-1.06L7.25 8.69V2.5a.75.75 0 00-.75-.75z"/></svg>
+          按时间排序 ID
+        </button>
+      </span>
+    </div>
     <div class="gantt-container">
-      <div class="gantt-chart" id="gantt-chart"></div>
+      <div class="gantt-chart" id="gantt-chart">
+        <div style="text-align:center;padding:2rem;color:var(--text-secondary);font-size:0.9rem">
+          点击子系统头部的 📊 按钮查看甘特图
+        </div>
+      </div>
     </div>
     <div class="legend" id="gantt-legend"></div>
   </div>
@@ -973,6 +1025,7 @@
     let globalLoggedIn = false;
     let githubUser = null;
     let githubToken = null;
+    let activeGanttSys = null;
 
     function canEdit(sysId) {
       if (!globalLoggedIn) return false;
@@ -990,6 +1043,77 @@
       return 'member';
     }
 
+    function toggleSubsystem(sysId, event) {
+      if (event) {
+        const target = event.target;
+        if (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'BUTTON' || target.closest('button')) return;
+      }
+      const el = document.getElementById('sys-' + sysId);
+      if (el) el.classList.toggle('open');
+    }
+
+    function toggleGanttForSys(sysId, event) {
+      if (event) event.stopPropagation();
+      if (activeGanttSys === sysId) {
+        clearGantt();
+        return;
+      }
+      activeGanttSys = sysId;
+      renderSingleGantt(sysId);
+      updateGanttButtonsUI();
+    }
+
+    function clearGantt() {
+      activeGanttSys = null;
+      renderSingleGantt(null);
+      updateGanttButtonsUI();
+    }
+
+    function updateGanttButtonsUI() {
+      document.querySelectorAll('.gantt-btn').forEach(btn => {
+        btn.classList.toggle('active', false);
+      });
+      const clearBtn = document.getElementById('gantt-clear-btn');
+      const sortWrap = document.getElementById('sort-btn-wrap');
+      const sysName = document.getElementById('gantt-sys-name');
+
+      if (activeGanttSys) {
+        const sys = data.subsystems.find(s => s.id === activeGanttSys);
+        const activeBtn = document.querySelector(`[data-sys-btn="${activeGanttSys}"]`);
+        if (activeBtn) activeBtn.classList.add('active');
+        if (clearBtn) clearBtn.style.display = 'inline-flex';
+        if (sortWrap) sortWrap.style.display = githubUser === ADMIN_USER ? 'inline-flex' : 'none';
+        if (sysName) sysName.textContent = sys ? ' - ' + sys.name_cn : '';
+      } else {
+        if (clearBtn) clearBtn.style.display = 'none';
+        if (sortWrap) sortWrap.style.display = 'none';
+        if (sysName) sysName.textContent = '';
+      }
+    }
+
+    function sortTasksByTime() {
+      if (!activeGanttSys) return;
+      const sys = data.subsystems.find(s => s.id === activeGanttSys);
+      if (!sys) return;
+      if (!canEdit(sys.id)) { alert('只有管理员可以执行排序操作'); return; }
+
+      sys.subtasks.sort((a, b) => {
+        const da = a.planned_start || '9999-99-99';
+        const db = b.planned_start || '9999-99-99';
+        if (da !== db) return da.localeCompare(db);
+        return (a.planned_end || '9999-99-99').localeCompare(b.planned_end || '9999-99-99');
+      });
+
+      sys.subtasks.forEach((t, i) => {
+        const prefix = sys.id.replace('-', '');
+        t.id = `${sys.id}-${String(i + 1).padStart(2, '0')}`;
+      });
+
+      data.last_updated = new Date().toISOString().slice(0, 19);
+      saveData();
+      render();
+    }
+
     async function loadData() {
       try {
         const resp = await fetch('data/commission.json?' + Date.now());
@@ -1005,7 +1129,12 @@
     function render() {
       renderSummary();
       renderSubsystems();
-      renderGantt();
+      renderActiveGantt();
+    }
+
+    function renderActiveGantt() {
+      renderSingleGantt(activeGanttSys);
+      updateGanttButtonsUI();
     }
 
     function filterTasks() {
@@ -1033,7 +1162,7 @@
       };
 
       renderSubsystems(filteredData);
-      renderGantt(filteredData);
+      renderActiveGantt();
     }
 
     function populateSubsystemFilter() {
@@ -1139,13 +1268,13 @@
         const attr = edit ? '' : 'disabled';
         const attrSub = edit ? '' : 'disabled';
         const readOnlyBadge = readonly ? '<span class="readonly-badge">🔒 只读</span>' : '';
-        const delBtn = edit ? `<button class="del-task-btn" title="Delete" onclick="deleteTask('${sys.id}','${t.id}')">&times;</button>` : '<button class="del-task-btn" disabled style="opacity:0.3">&times;</button>';
-        const addBtn = edit ? `<button class="add-task-btn" onclick="addTask('${sys.id}')">+ Add Subtask</button>` : '';
+        const isGanttActive = activeGanttSys === sys.id;
 
         const div = document.createElement('div');
         div.className = 'subsystem';
+        div.id = 'sys-' + sys.id;
         div.innerHTML = `
-          <div class="subsystem-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="subsystem-header" onclick="toggleSubsystem('${sys.id}', event)">
             <div class="left">
               <div class="indicator" style="background:${getIndicatorColor(prog)}"></div>
               <div class="info">
@@ -1155,19 +1284,19 @@
                   <div class="owner-row">
                     <span>Responsible:</span>
                     <input class="owner-input" value="${sys.responsible}" ${attr}
-                      onchange="updateSubsystem('${sys.id}','responsible',this.value)">
+                      onchange="updateSubsystem('${sys.id}','responsible',this.value)" onclick="event.stopPropagation()">
                     <span class="github-badge ${sys.github_user && sys.github_user.startsWith('TBD') ? 'pending' : ''}">
                       <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
                       @<input class="gh-user-input" value="${sys.github_user || 'TBD'}" ${attr}
-                        onchange="updateSubsystem('${sys.id}','github_user',this.value)"
+                        onchange="updateSubsystem('${sys.id}','github_user',this.value)" onclick="event.stopPropagation()"
                         title="GitHub用户名（用于权限管理）">
                     </span>
                   </div>
                   <div class="owner-row" style="margin-top:0.25rem">
                     <input type="date" class="sys-date-input" value="${sys.planned_start}" ${attr}
-                      onchange="updateSubsystem('${sys.id}','planned_start',this.value)">
+                      onchange="updateSubsystem('${sys.id}','planned_start',this.value)" onclick="event.stopPropagation()">
                     ~ <input type="date" class="sys-date-input" value="${sys.planned_end}" ${attr}
-                      onchange="updateSubsystem('${sys.id}','planned_end',this.value)">
+                      onchange="updateSubsystem('${sys.id}','planned_end',this.value)" onclick="event.stopPropagation()">
                   </div>
                 </div>
               </div>
@@ -1177,6 +1306,9 @@
                 <div class="progress-bar-fill" style="width:${prog}%;background:${getProgressColor(prog)}"></div>
               </div>
               <div class="progress-text" style="color:${getProgressColor(prog)}">${prog}%</div>
+              <button class="gantt-btn ${isGanttActive ? 'active' : ''}" data-sys-btn="${sys.id}" onclick="toggleGanttForSys('${sys.id}', event)" title="显示/隐藏甘特图">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25Zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25H4V1.5Zm10.5 0H5.5v13h6.75a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25Z"/></svg>
+              </button>
             </div>
             <div class="toggle-icon">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -1472,18 +1604,26 @@
       }
     }
 
-    function renderGantt(filteredData = data) {
+    function renderSingleGantt(sysId) {
       const chart = document.getElementById('gantt-chart');
       const legendEl = document.getElementById('gantt-legend');
 
+      if (!sysId) {
+        chart.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary);font-size:0.9rem">点击子系统头部的 📊 按钮查看甘特图</div>';
+        legendEl.innerHTML = '';
+        return;
+      }
+
+      const sys = data.subsystems.find(s => s.id === sysId);
+      if (!sys) return;
+
+      const color = COLORS[data.subsystems.findIndex(s => s.id === sysId) % COLORS.length];
       const allDates = [];
-      filteredData.subsystems.forEach(sys => {
-        allDates.push(new Date(sys.planned_start));
-        allDates.push(new Date(sys.planned_end));
-        sys.subtasks.forEach(t => {
-          allDates.push(new Date(t.planned_start));
-          allDates.push(new Date(t.planned_end));
-        });
+      allDates.push(new Date(sys.planned_start));
+      allDates.push(new Date(sys.planned_end));
+      sys.subtasks.forEach(t => {
+        allDates.push(new Date(t.planned_start));
+        allDates.push(new Date(t.planned_end));
       });
 
       const minDate = new Date(Math.min(...allDates));
@@ -1508,46 +1648,39 @@
         ? `<div class="gantt-today" style="left:${todayPos}%"></div>`
         : '';
 
-      const rowsHtml = filteredData.subsystems.map((sys, si) => {
-        const color = COLORS[si % COLORS.length];
-        const sysStart = new Date(sys.planned_start);
-        const sysEnd = new Date(sys.planned_end);
-        const left = ((sysStart - minDate) / (totalDays * 86400000)) * 100;
-        const width = ((sysEnd - sysStart) / (totalDays * 86400000)) * 100;
+      const sysStart = new Date(sys.planned_start);
+      const sysEnd = new Date(sys.planned_end);
+      const sLeft = ((sysStart - minDate) / (totalDays * 86400000)) * 100;
+      const sWidth = ((sysEnd - sysStart) / (totalDays * 86400000)) * 100;
 
-        let taskRows = sys.subtasks.map(t => {
-          const tStart = new Date(t.planned_start);
-          const tEnd = new Date(t.planned_end);
-          const tl = ((tStart - minDate) / (totalDays * 86400000)) * 100;
-          const tw = ((tEnd - tStart) / (totalDays * 86400000)) * 100;
-          const prog = t.progress / 100;
-          return `
-            <div class="gantt-row">
-              <div class="gantt-label">${t.id}</div>
-              <div class="gantt-bar-area">
-                <div class="gantt-bar" style="left:${tl}%;width:${tw}%;background:${color};opacity:0.4"></div>
-                <div class="gantt-bar" style="left:${tl}%;width:${tw*prog}%;background:${color}"></div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
+      const taskRows = sys.subtasks.map(t => {
+        const tStart = new Date(t.planned_start);
+        const tEnd = new Date(t.planned_end);
+        const tl = ((tStart - minDate) / (totalDays * 86400000)) * 100;
+        const tw = ((tEnd - tStart) / (totalDays * 86400000)) * 100;
+        const prog = t.progress / 100;
         return `
-          <div class="gantt-row" style="margin-bottom:4px">
-            <div class="gantt-label" style="font-weight:600;color:${color}">${sys.name}</div>
+          <div class="gantt-row">
+            <div class="gantt-label" title="${t.name}">${t.name_cn || t.name}</div>
             <div class="gantt-bar-area">
-              <div class="gantt-bar" style="left:${left}%;width:${width}%;background:${color};opacity:0.8;border-radius:4px"></div>
+              <div class="gantt-bar" style="left:${tl}%;width:${Math.max(tw, 0.3)}%;background:${color};opacity:0.4"></div>
+              <div class="gantt-bar" style="left:${tl}%;width:${Math.max(tw * prog, 0.15)}%;background:${color}"></div>
             </div>
           </div>
-          ${taskRows}
         `;
       }).join('');
 
-      chart.innerHTML = monthsHtml + todayHtml + rowsHtml;
+      chart.innerHTML = monthsHtml + todayHtml + `
+        <div class="gantt-row" style="margin-bottom:6px">
+          <div class="gantt-label" style="font-weight:600;color:${color};font-size:0.75rem">${sys.name_cn}</div>
+          <div class="gantt-bar-area">
+            <div class="gantt-bar" style="left:${sLeft}%;width:${sWidth}%;background:${color};opacity:0.8;border-radius:4px"></div>
+          </div>
+        </div>
+        ${taskRows}
+      `;
 
-      legendEl.innerHTML = filteredData.subsystems.map((sys, si) =>
-        `<div class="legend-item"><div class="legend-dot" style="background:${COLORS[si%COLORS.length]}"></div>${sys.name}</div>`
-      ).join('');
+      legendEl.innerHTML = `<div class="legend-item"><div class="legend-dot" style="background:${color}"></div>${sys.name_cn} (${sys.subtasks.length} 任务)</div>`;
     }
 
     function doGlobalLogin() {
