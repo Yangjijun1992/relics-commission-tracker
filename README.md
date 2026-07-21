@@ -9,6 +9,7 @@
 **访问地址：**
 - GitHub Pages 默认地址：`https://yangjijun1992.github.io/relics-commission-tracker/`
 - 自定义域名：`https://relics.tracker.com`（需完成 DNS 配置后生效，见 TODO.md）
+- 进度报告: [progress_report.md](progress_report.md)
 
 ---
 
@@ -128,7 +129,7 @@
 4. 向 main 分支提 Pull Request
 5. CODEOWNERS 自动通知对应子系统负责人
 6. 至少 1 人 Approved 后合并
-7. GitHub Actions 自动部署到 Pages
+7. GitHub Actions 自动生成 CODEOWNERS 并部署到 Pages
 ```
 
 ### GitHub 用户名映射
@@ -143,10 +144,10 @@
 |--------|--------|---------------|
 | PDS | 杨继军 | `Yangjijun1992` ✅ |
 | DAQ | 蔡畅、雷阳、杨继军 | `Yangjijun1992` ✅ |
-| TPC | 谢凌峰 | ⏳ 待填写 |
-| Computing | 王俊 | ⏳ 待填写 |
+| TPC | 谢凌峰 | `LingFeng-Xie` ✅ |
+| Computing | 王俊 | `elphen-wang` ✅ |
 | Cryo | 于佳成 | ⏳ 待填写 |
-| Muon | 王俊、王笑宇 | ⏳ 待填写 |
+| Muon | 王俊、王笑宇 | `elphen-wang` ✅ |
 | Shield | 岳玉用 | ⏳ 待填写 |
 | Facilities | 陈江宇 | ⏳ 待填写 |
 
@@ -157,16 +158,22 @@
 ```
 relics_commission/
 ├── index.html                    # 仪表盘主页（单文件SPA）
-├── CNAME                         # 自定义域名配置 → relics.tracker.com
 ├── data/
 │   └── commission.json           # 核心数据（JSON）
+├── scripts/
+│   ├── generate_codeowners.py    # CODEOWNERS 自动生成
+│   ├── validate_commission.py    # 数据格式校验
+│   └── generate_report.py        # 进度报告生成
+├── progress_report.md            # 自动生成的进度报告
 ├── tpc_related/                  # TPC 参考资料（已 gitignore）
 │   └── jupyter-notebook/         # Jupyter Notebook + 甘特图输出
 ├── .github/
 │   ├── CODEOWNERS                # 代码审核权限配置
 │   └── workflows/
-│       └── deploy.yml            # GitHub Pages 自动部署
-├── .gitignore                    # 忽略 tpc_related/、__pycache__/ 等
+│       ├── deploy.yml            # GitHub Pages 自动部署
+│       ├── generate-codeowners.yml # CODEOWNERS 自动生成
+│       └── validate-commission.yml # 数据校验
+├── .gitignore
 └── README.md
 ```
 
@@ -281,8 +288,13 @@ CNAME   www        yangjijun1992.github.io
 |------|------|
 | `index.html` | 单文件 SPA 仪表盘，含 HTML/CSS/JS |
 | `data/commission.json` | 核心进度数据，所有子系统和任务 |
-| `CNAME` | GitHub Pages 自定义域名配置 |
 | `.github/CODEOWNERS` | 代码审核权限，按文件路径指定 reviewer |
 | `.github/workflows/deploy.yml` | GitHub Actions 自动部署工作流 |
+| `.github/workflows/generate-codeowners.yml` | 自动生成 CODEOWNERS |
+| `.github/workflows/validate-commission.yml` | PR 时自动校验数据格式 |
+| `scripts/generate_codeowners.py` | CODEOWNERS 生成脚本 |
+| `scripts/validate_commission.py` | 数据校验脚本 |
+| `scripts/generate_report.py` | 进度报告生成脚本 |
+| `progress_report.md` | 自动生成的进度报告 |
 | `tpc_related/` | TPC 参考资料（Jupyter Notebook、甘特图），已 gitignore |
 | `.gitignore` | 忽略 tpc_related/、__pycache__/、.DS_Store 等 |

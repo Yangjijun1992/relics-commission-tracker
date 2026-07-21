@@ -9,24 +9,24 @@
 
 ### 1. 启用 GitHub Pages 部署
 
-- [ ] 进入 https://github.com/Yangjijun1992/relics-commission-tracker/settings/pages
-- [ ] **Source** → 选择 `Deploy from a branch`
-- [ ] **Branch** → 选择 `main`，文件夹选 `/ (root)`，点击 Save
-- [ ] 等待 1-2 分钟，用默认地址测试：**https://yangjijun1992.github.io/relics-commission-tracker/**
-- [ ] 确认页面正常加载、数据显示正确
+- [x] 进入 https://github.com/Yangjijun1992/relics-commission-tracker/settings/pages
+- [x] **Source** → 选择 `GitHub Actions`
+- [x] 手动触发 `Deploy to GitHub Pages` workflow
+- [x] 确认页面正常加载：**https://Yangjijun1992.github.io/relics-commission-tracker/**
+- [x] 删除 CNAME 文件（暂不使用自定义域名）
 
 ### 2. 收集各子系统负责人 GitHub 用户名
 
-- [ ] 谢凌峰（TPC）→ 填入 `github_user`
-- [ ] 王俊（Computing / Muon）→ 填入 `github_user`
-- [ ] 于佳成（Cryo）→ 填入 `github_user`
-- [ ] 岳玉用（Shield）→ 填入 `github_user`
-- [ ] 陈江宇（Facilities）→ 填入 `github_user`
-- [ ] 蔡畅（DAQ）→ 确认是否需要独立账号
-- [ ] 雷阳（DAQ）→ 确认是否需要独立账号
-- [ ] 王笑宇（Muon）→ 确认是否需要独立账号
+- [x] 谢凌峰（TPC）→ 已填写 `LingFeng-Xie`
+- [x] 王俊（Computing / Muon）→ 已填写 `elphen-wang`
+- [ ] 于佳成（Cryo）→ 待填写
+- [ ] 岳玉用（Shield）→ 待填写
+- [ ] 陈江宇（Facilities）→ 待填写
+- [ ] 蔡畅（DAQ）→ 待填写
+- [ ] 雷阳（DAQ）→ 待填写
+- [ ] 王笑宇（Muon）→ 待填写
 
-**操作方式：** 在网页端各子系统头部的 `@TBD-xxx` 处直接编辑，或修改 `data/commission.json` 中的 `github_user` 字段，然后点击 **CODEOWNERS** 按钮重新生成。
+**操作方式：** 在网页端各子系统头部的 `@TBD-xxx` 处直接编辑，或修改 `data/commission.json` 中的 `github_user` 字段，然后运行 `python scripts/generate_codeowners.py`。
 
 ### 2. GitHub 分支保护配置
 
@@ -38,7 +38,7 @@
 - [ ] 勾选 **Do not allow bypassing the above settings**
 - [ ] 测试：尝试直接 push main，确认被拒绝
 
-### 4. 自定义域名 DNS 配置（需先确认域名注册商）
+### 4. 自定义域名 DNS 配置
 
 - [ ] **确认域名注册商**（阿里云/腾讯云/Cloudflare/其他？联系实验室管理人员）
 - [ ] 登录域名管理后台
@@ -60,7 +60,7 @@
 
 ## 中优先级
 
-### 4. 数据完善
+### 5. 数据完善
 
 - [ ] 为所有 `assignee: TBD` 的任务分配具体负责人
 - [ ] 更新各任务的 `progress` 百分比（基于实际进展）
@@ -69,7 +69,7 @@
   - `cryo-01 冷却系统调试`(07-05) 在 `cryostat设计定制`(06-17~09-15) 完成之前就开始
   - `tpc-01 场笼组装`(07-10) 与 `TPC安装支架`(07-01~08-01) 时间重叠
 
-### 5. 查看器功能增强
+### 6. 查看器功能增强
 
 - [ ] 添加任务筛选/搜索功能（按名称、负责人、状态）
 - [ ] 添加子系统筛选器（只显示特定子系统）
@@ -78,30 +78,30 @@
 - [ ] 导出功能支持 PDF 格式
 - [ ] 移动端适配优化
 
-### 6. 自动化增强
+### 7. 自动化增强
 
-- [ ] GitHub Action：自动从 commission.json 生成 CODEOWNERS
-- [ ] GitHub Action：PR 修改 commission.json 时自动检查数据格式
-- [ ] GitHub Action：定时生成进度报告（Markdown 或 HTML）
+- [x] GitHub Action：自动从 commission.json 生成 CODEOWNERS (`generate-codeowners.yml`)
+- [x] GitHub Action：PR 修改 commission.json 时自动检查数据格式 (`validate-commission.yml`)
+- [x] GitHub Action：定时生成进度报告 (`generate-report.yml`)
 - [ ] Webhook：任务状态变更时通知相关负责人
 
 ---
 
 ## 低优先级
 
-### 7. 数据分析
+### 8. 数据分析
 
 - [ ] 添加关键路径分析（识别瓶颈任务）
 - [ ] 添加资源冲突检测（同一负责人同时段任务过多）
 - [ ] 添加里程碑依赖关系可视化
 - [ ] 历史版本对比（diff 视图）
 
-### 8. 多语言支持
+### 9. 多语言支持
 
 - [ ] 查看器支持中英文切换
 - [ ] 任务名称支持双语显示（当前已支持）
 
-### 9. 文档完善
+### 10. 文档完善
 
 - [ ] 编写贡献者指南（CONTRIBUTING.md）
 - [ ] 编写部署指南（针对新管理员）
@@ -117,9 +117,11 @@
 - [x] 合并 Jupyter Notebook TPC 任务（+17 项）
 - [x] 修复 PDS pds-08 重复 ID
 - [x] 添加 github_user 字段到各子系统
-- [x] 创建 CNAME 配置文件
 - [x] 创建 CODEOWNERS 模板
-- [x] 实现 CODEOWNERS 生成功能
+- [x] 实现 CODEOWNERS 生成功能（脚本 + Action）
+- [x] 实现数据校验功能（脚本 + Action）
+- [x] 实现进度报告生成（脚本 + Action）
+- [x] GitHub Pages 部署成功
 - [x] 更新 README.md
 
 ---
@@ -141,16 +143,14 @@
 # 本地预览
 python3 -m http.server 8000
 
-# 查看任务统计
-python3 -c "
-import json
-with open('data/commission.json') as f:
-    data = json.load(f)
-total = sum(len(s['subtasks']) for s in data['subsystems'])
-print(f'总任务数: {total}')
-for s in data['subsystems']:
-    print(f'  {s[\"id\"]}: {len(s[\"subtasks\"])} 项')
-"
+# 数据校验
+python3 scripts/validate_commission.py
+
+# 生成 CODEOWNERS
+python3 scripts/generate_codeowners.py
+
+# 生成进度报告
+python3 scripts/generate_report.py
 
 # 提交并推送
 git add data/commission.json && git commit -m "update: 进度更新" && git push origin main
