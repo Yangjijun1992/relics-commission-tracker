@@ -531,6 +531,17 @@
           "progress": 0,
           "assignee": "赵一飞",
           "notes": ""
+        },
+        {
+          "id": "tpc-19",
+          "name": "Shaping Ring manufacturing",
+          "name_cn": "整形环加工",
+          "planned_start": "2026-07-20",
+          "planned_end": "2026-08-10",
+          "status": "in_progress",
+          "progress": 19,
+          "assignee": "谢凌峰",
+          "notes": "7月20日与整形环加工厂商(东莞大新能率电子)确认加工细节，开始用低本底无氧铜下料加工，工期约18日。剩余材料小于RELICS-50的无氧铜支撑板。"
         }
       ],
       "github_user": "LingFeng-Xie"
@@ -642,17 +653,6 @@
       "planned_start": "2026-06-17",
       "planned_end": "2026-12-30",
       "subtasks": [
-        {
-          "id": "cryo-pre-01",
-          "name": "Cryostat Design & Fabrication",
-          "name_cn": "低温恒温罐设计定制",
-          "planned_start": "2026-06-17",
-          "planned_end": "2026-09-15",
-          "status": "in_progress",
-          "progress": 0,
-          "assignee": "于佳成",
-          "notes": "原始图纸已交给润理公司，工程师胡荣朝会进行跟进"
-        },
         {
           "id": "cryo-pre-02",
           "name": "Overflow Chamber Design & Fabrication",
@@ -773,6 +773,17 @@
           "progress": 0,
           "assignee": "李凯航",
           "notes": ""
+        },
+        {
+          "id": "cryo-12",
+          "name": "Cryogenics & Circulation System Design",
+          "name_cn": "制冷、循环系统设计",
+          "planned_start": "2026-07-21",
+          "planned_end": "2026-10-21",
+          "status": "in_progress",
+          "progress": 19,
+          "assignee": "陈江宇、谢凌峰",
+          "notes": "1、系统布局优化；2、管路优化设计；3、设备布局调整； 4、抽真空接口标准化设计"
         }
       ],
       "github_user": "TBD-yujicheng"
@@ -864,13 +875,24 @@
         },
         {
           "id": "muon-08",
-          "name": "New Task",
-          "name_cn": "新任务",
+          "name": "SiPM Readout PCB Design",
+          "name_cn": "Muon Veto信号读出设计",
+          "planned_start": "2026-07-21",
+          "planned_end": "2026-08-09",
+          "status": "in_progress",
+          "progress": 0,
+          "assignee": "赵一飞",
+          "notes": "确定塑闪板几何尺寸，读出板尺寸设计。确定放大倍数 (~10x)、带宽 (50-100MHz，接口、供电方式； 3周时间，完成信噪比评估、初版电路设计、打板；"
+        },
+        {
+          "id": "muon-09",
+          "name": "Plastic Sicintilator Detector Array",
+          "name_cn": "塑闪阵列",
           "planned_start": "2026-07-20",
           "planned_end": "2026-07-20",
-          "status": "not_started",
+          "status": "in_progress",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "王俊",
           "notes": ""
         }
       ],
@@ -937,6 +959,17 @@
           "status": "in_progress",
           "progress": 29,
           "assignee": "岳玉用",
+          "notes": ""
+        },
+        {
+          "id": "shield-06",
+          "name": "Shielding Design & Size Matching",
+          "name_cn": "屏蔽体摆放、尺寸安装设计",
+          "planned_start": "2026-07-10",
+          "planned_end": "2026-10-30",
+          "status": "in_progress",
+          "progress": 9,
+          "assignee": "陈江宇、李圣超",
           "notes": ""
         }
       ],
@@ -1010,26 +1043,26 @@
           "name": "Access Control & Monitoring",
           "name_cn": "门禁与监控",
           "planned_start": "2026-11-01",
-          "planned_end": "2026-11-30",
+          "planned_end": "2026-03-30",
           "status": "not_started",
           "progress": 0,
           "assignee": "李圣超、杨继军",
           "notes": "西湖大学实验室"
         },
         {
-          "id": "fac-08",
-          "name": "Overall Integration Test",
-          "name_cn": "整体联调测试",
-          "planned_start": "2027-02-28",
-          "planned_end": "2027-03-30",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "杨继军",
-          "notes": "西湖大学实验室"
+          "id": "fac-10",
+          "name": "Cryostat Design & Fabrication",
+          "name_cn": "低温恒温罐设计定制",
+          "planned_start": "2026-06-17",
+          "planned_end": "2026-09-15",
+          "status": "in_progress",
+          "progress": 13,
+          "assignee": "陈江宇",
+          "notes": "原始图纸已交给润理公司，工程师胡荣朝会进行跟进； 目前罐体正在处理，还有些没有画好。尽量这周把方案给到。"
         }
       ],
       "github_user": "TBD-chenjiangyu"
     }
   ],
-  "last_updated": "2026-07-21T07:12:50"
+  "last_updated": "2026-07-21T08:02:18"
 }
