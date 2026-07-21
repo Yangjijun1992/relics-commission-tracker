@@ -662,6 +662,185 @@
       border-top: 1px solid var(--border-color);
     }
 
+    .login-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0; z-index: 9999;
+      background: var(--bg-primary);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-overlay.hidden { display: none; }
+
+    .login-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2.5rem 2rem;
+      width: 380px;
+      max-width: 95vw;
+    }
+
+    .login-box h2 {
+      font-size: 1.25rem;
+      text-align: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .login-box .desc {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .login-box label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+      margin-top: 0.75rem;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    .login-box input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+
+    .login-box .login-btn {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: var(--accent-blue);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .login-box .login-btn:hover {
+      background: #2563eb;
+    }
+
+    .login-box .login-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .login-box .error {
+      color: var(--accent-red);
+      font-size: 0.8rem;
+      text-align: center;
+      margin-top: 0.75rem;
+      min-height: 1.2rem;
+    }
+
+    .identity-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 2rem;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.8rem;
+    }
+
+    .identity-bar .logged-in-as {
+      color: var(--text-secondary);
+    }
+
+    .identity-bar .gh-login-btn {
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .identity-bar .gh-login-btn:hover {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    .identity-bar .gh-login-btn.active {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .identity-bar .role-badge {
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .role-badge.admin {
+      background: rgba(168,85,247,0.2);
+      color: #c084fc;
+    }
+
+    .role-badge.member {
+      background: rgba(59,130,246,0.2);
+      color: #60a5fa;
+    }
+
+    .role-badge.readonly {
+      background: rgba(100,116,139,0.2);
+      color: #94a3b8;
+    }
+
+    input[disabled], select[disabled], button[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .readonly-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      background: rgba(234,179,8,0.12);
+      color: #facc15;
+      border: 1px solid rgba(234,179,8,0.3);
+      margin-left: 0.4rem;
+    }
+
+    .header-actions .gh-auth-btn {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      font-weight: 600;
+      display: none;
+    }
+
+    .header-actions .gh-auth-btn.show { display: inline-flex; }
+
+    .header-actions .gh-auth-btn:hover {
+      background: rgba(6,182,212,0.1);
+    }
+
     @media (max-width: 900px) {
       .subtask-row, .subtask-header {
         grid-template-columns: 50px 1fr 80px;
@@ -674,6 +853,27 @@
   </style>
 </head>
 <body>
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-box">
+      <h2>RELICS Commission Run Tracker</h2>
+      <div class="desc">请输入全局访问密码</div>
+      <label>Username</label>
+      <input type="text" id="login-username" placeholder="username" autofocus>
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="password">
+      <button class="login-btn" id="login-btn" onclick="doGlobalLogin()">登 录</button>
+      <div class="error" id="login-error"></div>
+    </div>
+  </div>
+
+  <div class="identity-bar" id="identity-bar" style="display:none">
+    <span class="logged-in-as">🔐 已登录: <strong id="identity-name">relics10</strong></span>
+    <button class="gh-login-btn" id="gh-login-btn" onclick="toggleGithubAuth()">
+      <span id="gh-auth-text">⚡ 验证 GitHub 身份（获取编辑权限）</span>
+    </button>
+    <span id="role-badge-container"></span>
+  </div>
+
   <div class="header">
     <h1>RELICS Commission Run Tracker</h1>
     <div class="subtitle">RELICS 实验 Commission Run 进度跟踪</div>
@@ -695,6 +895,10 @@
       <button class="push-btn" onclick="toggleGithubConfig()">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
         Push to GitHub
+      </button>
+      <button class="gh-auth-btn" id="gh-auth-btn" onclick="toggleGithubAuth()">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
+        Authenticate GitHub
       </button>
       <button class="export-btn" onclick="generateCODEOWNERS()" title="根据当前负责人映射生成 CODEOWNERS 文件">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75z"/></svg>
@@ -761,8 +965,30 @@
 
   <script>
     const COLORS = ['#3b82f6','#22c55e','#a855f7','#eab308','#ef4444','#06b6d4','#f97316','#ec4899'];
+    const ADMIN_USER = 'Yangjijun1992';
+    const GLOBAL_USER = 'relics10';
+    const GLOBAL_PASS = 'ComeOnRELICS!';
 
     let data = null;
+    let globalLoggedIn = false;
+    let githubUser = null;
+    let githubToken = null;
+
+    function canEdit(sysId) {
+      if (!globalLoggedIn) return false;
+      if (!githubUser) return false;
+      if (githubUser === ADMIN_USER) return true;
+      const sys = data.subsystems.find(s => s.id === sysId);
+      if (!sys) return false;
+      return sys.github_user === githubUser;
+    }
+
+    function getRole() {
+      if (!globalLoggedIn) return 'none';
+      if (!githubUser) return 'readonly';
+      if (githubUser === ADMIN_USER) return 'admin';
+      return 'member';
+    }
 
     async function loadData() {
       try {
@@ -786,7 +1012,7 @@
       const searchTerm = document.getElementById('search-input').value.toLowerCase();
       const statusFilter = document.getElementById('status-filter').value;
       const subsystemFilter = document.getElementById('subsystem-filter').value;
-      
+
       const filteredData = {
         ...data,
         subsystems: data.subsystems.filter(sys => {
@@ -795,25 +1021,24 @@
         }).map(sys => ({
           ...sys,
           subtasks: sys.subtasks.filter(task => {
-            const matchesSearch = !searchTerm || 
+            const matchesSearch = !searchTerm ||
               task.name.toLowerCase().includes(searchTerm) ||
               task.name_cn.toLowerCase().includes(searchTerm) ||
               task.assignee.toLowerCase().includes(searchTerm) ||
               task.id.toLowerCase().includes(searchTerm);
-            
             const matchesStatus = !statusFilter || task.status === statusFilter;
-            
             return matchesSearch && matchesStatus;
           })
         })).filter(sys => sys.subtasks.length > 0)
       };
-      
+
       renderSubsystems(filteredData);
       renderGantt(filteredData);
     }
 
     function populateSubsystemFilter() {
       const select = document.getElementById('subsystem-filter');
+      select.innerHTML = '<option value="">所有子系统</option>';
       data.subsystems.forEach(sys => {
         const option = document.createElement('option');
         option.value = sys.id;
@@ -909,6 +1134,14 @@
 
       filteredData.subsystems.forEach((sys, si) => {
         const prog = getSubsystemProgress(sys);
+        const edit = canEdit(sys.id);
+        const readonly = globalLoggedIn && !edit;
+        const attr = edit ? '' : 'disabled';
+        const attrSub = edit ? '' : 'disabled';
+        const readOnlyBadge = readonly ? '<span class="readonly-badge">🔒 只读</span>' : '';
+        const delBtn = edit ? `<button class="del-task-btn" title="Delete" onclick="deleteTask('${sys.id}','${t.id}')">&times;</button>` : '<button class="del-task-btn" disabled style="opacity:0.3">&times;</button>';
+        const addBtn = edit ? `<button class="add-task-btn" onclick="addTask('${sys.id}')">+ Add Subtask</button>` : '';
+
         const div = document.createElement('div');
         div.className = 'subsystem';
         div.innerHTML = `
@@ -916,24 +1149,24 @@
             <div class="left">
               <div class="indicator" style="background:${getIndicatorColor(prog)}"></div>
               <div class="info">
-                <h2>${sys.name}</h2>
+                <h2>${sys.name}${readOnlyBadge}</h2>
                 <div class="cn">${sys.name_cn}</div>
                 <div class="owner">
                   <div class="owner-row">
                     <span>Responsible:</span>
-                    <input class="owner-input" value="${sys.responsible}"
+                    <input class="owner-input" value="${sys.responsible}" ${attr}
                       onchange="updateSubsystem('${sys.id}','responsible',this.value)">
                     <span class="github-badge ${sys.github_user && sys.github_user.startsWith('TBD') ? 'pending' : ''}">
                       <svg viewBox="0 0 16 16"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 01-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 010 8c0-4.42 3.58-8 8-8z"/></svg>
-                      @<input class="gh-user-input" value="${sys.github_user || 'TBD'}"
+                      @<input class="gh-user-input" value="${sys.github_user || 'TBD'}" ${attr}
                         onchange="updateSubsystem('${sys.id}','github_user',this.value)"
                         title="GitHub用户名（用于权限管理）">
                     </span>
                   </div>
                   <div class="owner-row" style="margin-top:0.25rem">
-                    <input type="date" class="sys-date-input" value="${sys.planned_start}"
+                    <input type="date" class="sys-date-input" value="${sys.planned_start}" ${attr}
                       onchange="updateSubsystem('${sys.id}','planned_start',this.value)">
-                    ~ <input type="date" class="sys-date-input" value="${sys.planned_end}"
+                    ~ <input type="date" class="sys-date-input" value="${sys.planned_end}" ${attr}
                       onchange="updateSubsystem('${sys.id}','planned_end',this.value)">
                   </div>
                 </div>
@@ -965,23 +1198,23 @@
             ${sys.subtasks.map(t => `
               <div class="subtask-row" data-id="${t.id}">
                 <div class="id" style="display:flex;align-items:center;gap:0.3rem">
-                  <button class="del-task-btn" title="Delete" onclick="deleteTask('${sys.id}','${t.id}')">&times;</button>
+                  ${edit ? `<button class="del-task-btn" title="Delete" onclick="deleteTask('${sys.id}','${t.id}')">&times;</button>` : `<button class="del-task-btn" disabled style="opacity:0.3">&times;</button>`}
                   <span>${t.id}</span>
                 </div>
                 <div>
-                  <input class="task-name-input" value="${t.name}" placeholder="Task name"
+                  <input class="task-name-input" value="${t.name}" placeholder="Task name" ${attrSub}
                     onchange="updateTask('${sys.id}','${t.id}','name',this.value)">
-                  <input class="task-cn-input" value="${t.name_cn}" placeholder="中文名"
+                  <input class="task-cn-input" value="${t.name_cn}" placeholder="中文名" ${attrSub}
                     onchange="updateTask('${sys.id}','${t.id}','name_cn',this.value)">
                 </div>
-                <div><input type="date" class="date-input" value="${t.planned_start}"
+                <div><input type="date" class="date-input" value="${t.planned_start}" ${attrSub}
                   onchange="updateTask('${sys.id}','${t.id}','planned_start',this.value)"></div>
-                <div><input type="date" class="date-input" value="${t.planned_end}"
+                <div><input type="date" class="date-input" value="${t.planned_end}" ${attrSub}
                   onchange="updateTask('${sys.id}','${t.id}','planned_end',this.value)"></div>
-                <div><input class="assignee-input" value="${t.assignee}" placeholder="TBD"
+                <div><input class="assignee-input" value="${t.assignee}" placeholder="TBD" ${attrSub}
                   onchange="updateTask('${sys.id}','${t.id}','assignee',this.value)"></div>
                 <div>
-                  <select class="status-select" onchange="updateTask('${sys.id}','${t.id}','status',this.value)">
+                  <select class="status-select" ${attrSub} onchange="updateTask('${sys.id}','${t.id}','status',this.value)">
                     <option value="not_started" ${t.status==='not_started'?'selected':''}>Not Started</option>
                     <option value="in_progress" ${t.status==='in_progress'?'selected':''}>In Progress</option>
                     <option value="completed" ${t.status==='completed'?'selected':''}>Completed</option>
@@ -990,18 +1223,18 @@
                   </select>
                 </div>
                 <div class="subtask-progress">
-                  <input type="range" min="0" max="100" value="${t.progress}"
+                  <input type="range" min="0" max="100" value="${t.progress}" ${attrSub}
                     style="width:60px;accent-color:${getProgressColor(t.progress)}"
-                    oninput="updateTask('${sys.id}','${t.id}','progress',+this.value);this.nextElementSibling.textContent=this.value+'%';this.previousElementSibling&&0">
-                  <input type="number" class="progress-input" min="0" max="100" value="${t.progress}"
+                    oninput="updateTask('${sys.id}','${t.id}','progress',+this.value);this.nextElementSibling.textContent=this.value+'%'">
+                  <input type="number" class="progress-input" min="0" max="100" value="${t.progress}" ${attrSub}
                     onchange="updateTask('${sys.id}','${t.id}','progress',+this.value);this.parentElement.querySelector('input[type=range]').value=this.value">
                 </div>
-                <div><input class="notes-input" value="${t.notes||''}" placeholder="Notes..."
+                <div><input class="notes-input" value="${t.notes||''}" placeholder="Notes..." ${attrSub}
                   onchange="updateTask('${sys.id}','${t.id}','notes',this.value)"></div>
               </div>
             `).join('')}
             <div class="add-task-row">
-              <button class="add-task-btn" onclick="addTask('${sys.id}')">+ Add Subtask</button>
+              ${edit ? `<button class="add-task-btn" onclick="addTask('${sys.id}')">+ Add Subtask</button>` : ''}
             </div>
           </div>
         `;
@@ -1010,6 +1243,7 @@
     }
 
     function updateTask(sysId, taskId, field, value) {
+      if (!canEdit(sysId)) return;
       const sys = data.subsystems.find(s => s.id === sysId);
       if (!sys) return;
       const task = sys.subtasks.find(t => t.id === taskId);
@@ -1022,6 +1256,7 @@
     }
 
     function updateSubsystem(sysId, field, value) {
+      if (!canEdit(sysId)) return;
       const sys = data.subsystems.find(s => s.id === sysId);
       if (!sys) return;
       sys[field] = value;
@@ -1032,10 +1267,10 @@
     }
 
     function addTask(sysId) {
+      if (!canEdit(sysId)) return;
       const sys = data.subsystems.find(s => s.id === sysId);
       if (!sys) return;
       const idx = sys.subtasks.length + 1;
-      const prefix = sys.id.replace('-', '');
       const newTask = {
         id: `${sys.id}-${String(idx).padStart(2,'0')}`,
         name: 'New Task',
@@ -1054,6 +1289,7 @@
     }
 
     function deleteTask(sysId, taskId) {
+      if (!canEdit(sysId)) return;
       if (!confirm('Delete this subtask?')) return;
       const sys = data.subsystems.find(s => s.id === sysId);
       if (!sys) return;
@@ -1137,7 +1373,6 @@
       lines.push('# 部署相关文件');
       lines.push('# ============================================================');
       lines.push('/.github/                            @Yangjijun1992');
-      lines.push('/CNAME                               @Yangjijun1992');
 
       const content = lines.join('\n');
       const blob = new Blob([content], { type: 'text/plain' });
@@ -1198,7 +1433,6 @@
           'Accept': 'application/vnd.github.v3+json',
         };
 
-        // Step 1: Get current file SHA
         const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${branch}`;
         const getResp = await fetch(getUrl, { headers });
         let sha = null;
@@ -1209,7 +1443,6 @@
           throw new Error(`GET failed (${getResp.status}): ${(await getResp.json()).message}`);
         }
 
-        // Step 2: Create/update file
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
         const body = {
           message: cfg.commitMsg || 'update commission progress',
@@ -1238,17 +1471,6 @@
         btn.disabled = false;
       }
     }
-
-    // Load saved GitHub config on startup
-    window.addEventListener('DOMContentLoaded', () => {
-      const cfg = loadGithubConfig();
-      if (cfg) {
-        if (cfg.token) document.getElementById('gh-token').value = cfg.token;
-        if (cfg.ownerRepo) document.getElementById('gh-owner-repo').value = cfg.ownerRepo;
-        if (cfg.branch) document.getElementById('gh-branch').value = cfg.branch;
-        if (cfg.commitMsg) document.getElementById('gh-commit-msg').value = cfg.commitMsg;
-      }
-    });
 
     function renderGantt(filteredData = data) {
       const chart = document.getElementById('gantt-chart');
@@ -1280,11 +1502,10 @@
 
       const monthsHtml = '<div class="gantt-months">' + months.map(m => `<div class="month">${m}</div>`).join('') + '</div>';
 
-      // Add today line
       const today = new Date();
       const todayPos = ((today - minDate) / (totalDays * 86400000)) * 100;
-      const todayHtml = todayPos >= 0 && todayPos <= 100 
-        ? `<div class="gantt-today" style="left:${todayPos}%"></div>` 
+      const todayHtml = todayPos >= 0 && todayPos <= 100
+        ? `<div class="gantt-today" style="left:${todayPos}%"></div>`
         : '';
 
       const rowsHtml = filteredData.subsystems.map((sys, si) => {
@@ -1328,6 +1549,157 @@
         `<div class="legend-item"><div class="legend-dot" style="background:${COLORS[si%COLORS.length]}"></div>${sys.name}</div>`
       ).join('');
     }
+
+    function doGlobalLogin() {
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('login-error');
+
+      if (username === GLOBAL_USER && password === GLOBAL_PASS) {
+        globalLoggedIn = true;
+        document.getElementById('login-overlay').classList.add('hidden');
+        document.getElementById('identity-bar').style.display = 'flex';
+        document.getElementById('gh-auth-btn').classList.add('show');
+        updateIdentityDisplay();
+        localStorage.setItem('relics_logged_in', 'true');
+        errorEl.textContent = '';
+      } else {
+        errorEl.textContent = '用户名或密码错误';
+      }
+    }
+
+    document.getElementById('login-password').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doGlobalLogin();
+    });
+
+    document.getElementById('login-username').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doGlobalLogin();
+    });
+
+    function toggleGithubAuth() {
+      if (!globalLoggedIn) return;
+
+      if (githubUser) {
+        githubUser = null;
+        githubToken = null;
+        localStorage.removeItem('relics_gh_user');
+        localStorage.removeItem('relics_gh_token');
+        updateIdentityDisplay();
+        render();
+        return;
+      }
+
+      const token = prompt('请输入你的 GitHub Personal Access Token (PAT):\n\n' +
+        '需要 repo 权限。创建地址: https://github.com/settings/tokens\n' +
+        '此 token 仅用于验证你的 GitHub 身份，不会被上传到任何服务器。');
+
+      if (!token) return;
+
+      verifyGithubToken(token);
+    }
+
+    async function verifyGithubToken(token) {
+      const ghLoginBtn = document.getElementById('gh-login-btn');
+      const ghAuthText = document.getElementById('gh-auth-text');
+
+      ghAuthText.textContent = '⏳ 验证中...';
+      ghLoginBtn.disabled = true;
+
+      try {
+        const resp = await fetch('https://api.github.com/user', {
+          headers: {
+            'Authorization': 'token ' + token,
+            'Accept': 'application/vnd.github.v3+json',
+          }
+        });
+
+        if (resp.ok) {
+          const userData = await resp.json();
+          githubUser = userData.login;
+          githubToken = token;
+          localStorage.setItem('relics_gh_user', githubUser);
+          localStorage.setItem('relics_gh_token', token);
+
+          if (githubUser === ADMIN_USER) {
+            alert(`认证成功！你好，管理员 ${githubUser}。\n\n你拥有所有子系统的编辑权限。`);
+          } else {
+            const mySystems = data.subsystems.filter(s => s.github_user === githubUser);
+            if (mySystems.length > 0) {
+              alert(`认证成功！你好，${githubUser}。\n\n你负责的子系统: ${mySystems.map(s => s.name_cn).join('、')}`);
+            } else {
+              alert(`认证成功！你好，${githubUser}。\n\n⚠️ 你在 commission.json 中未找到匹配的 github_user，当前只有只读权限。请联系管理员 Yangjijun1992 为你分配子系统。`);
+            }
+          }
+          updateIdentityDisplay();
+          render();
+        } else {
+          alert('GitHub Token 验证失败！请检查 Token 是否正确，是否拥有 repo 权限。');
+        }
+      } catch (err) {
+        alert('网络错误，无法连接 GitHub API: ' + err.message);
+      } finally {
+        ghLoginBtn.disabled = false;
+        updateIdentityDisplay();
+      }
+    }
+
+    function updateIdentityDisplay() {
+      const ghLoginBtn = document.getElementById('gh-login-btn');
+      const ghAuthText = document.getElementById('gh-auth-text');
+      const identityName = document.getElementById('identity-name');
+      const roleContainer = document.getElementById('role-badge-container');
+
+      if (!globalLoggedIn) return;
+
+      identityName.textContent = GLOBAL_USER;
+
+      if (githubUser) {
+        identityName.textContent = githubUser;
+        ghAuthText.textContent = `✅ 已认证: @${githubUser} (点击切换)`;
+        ghLoginBtn.classList.add('active');
+
+        if (githubUser === ADMIN_USER) {
+          roleContainer.innerHTML = '<span class="role-badge admin">👑 管理员 - 全部权限</span>';
+        } else {
+          const mySystems = data.subsystems.filter(s => s.github_user === githubUser);
+          if (mySystems.length > 0) {
+            roleContainer.innerHTML = `<span class="role-badge member">📝 ${mySystems.map(s => s.name).join(', ')}</span>`;
+          } else {
+            roleContainer.innerHTML = '<span class="role-badge readonly">👁️ 只读模式</span>';
+          }
+        }
+      } else {
+        ghAuthText.textContent = '⚡ 验证 GitHub 身份（获取编辑权限）';
+        ghLoginBtn.classList.remove('active');
+        roleContainer.innerHTML = '<span class="role-badge readonly">👁️ 只读模式</span>';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('relics_logged_in') === 'true') {
+        globalLoggedIn = true;
+        document.getElementById('login-overlay').classList.add('hidden');
+        document.getElementById('identity-bar').style.display = 'flex';
+        document.getElementById('gh-auth-btn').classList.add('show');
+      }
+
+      const savedUser = localStorage.getItem('relics_gh_user');
+      const savedToken = localStorage.getItem('relics_gh_token');
+      if (savedUser && savedToken) {
+        githubUser = savedUser;
+        githubToken = savedToken;
+      }
+
+      updateIdentityDisplay();
+
+      const cfg = loadGithubConfig();
+      if (cfg) {
+        if (cfg.token) document.getElementById('gh-token').value = cfg.token;
+        if (cfg.ownerRepo) document.getElementById('gh-owner-repo').value = cfg.ownerRepo;
+        if (cfg.branch) document.getElementById('gh-branch').value = cfg.branch;
+        if (cfg.commitMsg) document.getElementById('gh-commit-msg').value = cfg.commitMsg;
+      }
+    });
 
     loadData();
   </script>

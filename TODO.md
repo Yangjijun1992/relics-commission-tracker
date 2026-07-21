@@ -122,6 +122,10 @@
 - [x] 实现数据校验功能（脚本 + Action）
 - [x] 实现进度报告生成（脚本 + Action）
 - [x] GitHub Pages 部署成功
+- [x] 实现全局登录验证（relics10 / ComeOnRELICS!）
+- [x] 实现 GitHub PAT 身份验证 + 权限分级
+- [x] 子系统编辑权限控制（管理员 vs 子系统负责人 vs 只读）
+- [x] 无权限用户的只读锁定功能
 - [x] 更新 README.md
 
 ---
