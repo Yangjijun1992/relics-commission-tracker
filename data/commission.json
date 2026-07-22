@@ -86,9 +86,9 @@
           "name": "Dark Count Rate Measurement",
           "name_cn": "暗计数率测量",
           "planned_start": "2026-07-15",
-          "planned_end": "2026-08-10",
-          "status": "not_started",
-          "progress": 0,
+          "planned_end": "2026-07-24",
+          "status": "in_progress",
+          "progress": 57,
           "assignee": "YJJ",
           "notes": ""
         },
@@ -97,10 +97,10 @@
           "name": "Room Temperature Gain Calibration",
           "name_cn": "常温增益标定",
           "planned_start": "2026-07-15",
-          "planned_end": "2026-08-15",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
+          "planned_end": "2026-07-24",
+          "status": "in_progress",
+          "progress": 63,
+          "assignee": "YJJ",
           "notes": ""
         },
         {
@@ -119,10 +119,10 @@
           "name": "Afterpulsing Characterization",
           "name_cn": "室温后脉冲特性测量",
           "planned_start": "2026-07-15",
-          "planned_end": "2026-08-10",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
+          "planned_end": "2026-07-24",
+          "status": "in_progress",
+          "progress": 63,
+          "assignee": "YJJ ",
           "notes": ""
         },
         {
@@ -1031,5 +1031,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-07-22T12:01:45"
+  "last_updated": "2026-07-22T14:20:21"
 }
