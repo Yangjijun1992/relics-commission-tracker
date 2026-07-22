@@ -23,7 +23,7 @@
 # PDS - 光子探测系统（负责人: 杨继军）
 /data/commission.json                @Yangjijun1992
 
-# DAQ - 数据采集系统（负责人: 蔡畅、雷阳、杨继军）
+# DAQ - 数据采集系统（负责人: 蔡畅）
 /data/commission.json                @Yangjijun1992
 
 # TPC - 时间投影室系统（负责人: 谢凌峰）
@@ -42,7 +42,7 @@
 /data/commission.json                @TBD-yueyuyong
 
 # FAC - 基础设施设备（负责人: 陈江宇）
-/data/commission.json                @TBD-chenjiangyu
+/data/commission.json                @JiangyuChen853
 
 # ============================================================
 # 部署相关文件（仅管理员可修改）
