@@ -23,19 +23,8 @@
           "planned_end": "2026-07-25",
           "status": "in_progress",
           "progress": 0,
-          "assignee": "TBD",
+          "assignee": "YJJ",
           "notes": "杨季军、雷阳目前开始测试光电倍增管"
-        },
-        {
-          "id": "pds-pre-02",
-          "name": "PMT Readout Circuit & Cable Fabrication",
-          "name_cn": "PMT读出电路与线缆制作",
-          "planned_start": "2026-07-01",
-          "planned_end": "2026-09-30",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": "杨季军联系厂商布朗定制"
         },
         {
           "id": "pds-pre-03",
@@ -45,7 +34,7 @@
           "planned_end": "2026-07-07",
           "status": "completed",
           "progress": 100,
-          "assignee": "TBD",
+          "assignee": "谢凌峰",
           "notes": "已完成，已初步测试透光性"
         },
         {
@@ -88,7 +77,7 @@
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
           "status": "in_progress",
-          "progress": 57,
+          "progress": 64,
           "assignee": "YJJ",
           "notes": ""
         },
@@ -99,7 +88,7 @@
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
           "status": "in_progress",
-          "progress": 63,
+          "progress": 77,
           "assignee": "YJJ",
           "notes": ""
         },
@@ -121,7 +110,7 @@
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
           "status": "in_progress",
-          "progress": 63,
+          "progress": 73,
           "assignee": "YJJ ",
           "notes": ""
         },
@@ -134,7 +123,7 @@
           "status": "in_progress",
           "progress": 0,
           "assignee": "TBD",
-          "notes": "厂家给出报价"
+          "notes": ""
         },
         {
           "id": "pds-09",
@@ -152,11 +141,11 @@
           "name": "Cabling & Conectors",
           "name_cn": "接头与线缆",
           "planned_start": "2026-07-10",
-          "planned_end": "2026-08-30",
-          "status": "not_started",
+          "planned_end": "2026-10-30",
+          "status": "in_progress",
           "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "assignee": "YJJ",
+          "notes": "厂家给出报价"
         }
       ],
       "github_user": "Yangjijun1992"
@@ -940,7 +929,7 @@
           "notes": ""
         }
       ],
-      "github_user": "TBD-yueyuyong"
+      "github_user": "Yueyuyong"
     },
     {
       "id": "fac",
@@ -1031,5 +1020,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-07-22T14:20:21"
+  "last_updated": "2026-07-23T02:55:59"
 }
