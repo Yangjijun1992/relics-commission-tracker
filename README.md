@@ -32,10 +32,7 @@
 
 ### 全局访问凭证
 
-| 字段 | 值 |
-|------|-----|
-| 用户名 | `relics10` |
-| 密码 | `ComeOnRELICS!` |
+联系项目管理员获取全局访问凭证。
 
 ### GitHub 用户名映射
 
@@ -154,7 +151,7 @@ python3 -m http.server 8000
 ### 子系统负责人编辑流程
 
 1. 打开 https://yangjijun1992.github.io/relics-commission-tracker/
-2. 输入全局密码 `relics10` / `ComeOnRELICS!`
+2. 输入全局密码（联系管理员获取）
 3. 点击「验证 GitHub 身份」，输入你的 GitHub PAT
 4. 展开你负责的子系统，编辑任务字段
 5. 修改保存在浏览器 `localStorage`
