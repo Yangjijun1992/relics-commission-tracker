@@ -76,10 +76,10 @@
           "name_cn": "暗计数率测量",
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
-          "status": "in_progress",
-          "progress": 64,
+          "status": "completed",
+          "progress": 100,
           "assignee": "YJJ",
-          "notes": ""
+          "notes": "已测试完，并上传至数据库"
         },
         {
           "id": "pds-05",
@@ -87,10 +87,10 @@
           "name_cn": "常温增益标定",
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
-          "status": "in_progress",
-          "progress": 77,
+          "status": "completed",
+          "progress": 100,
           "assignee": "YJJ",
-          "notes": ""
+          "notes": "已测试完，并上传至数据库"
         },
         {
           "id": "pds-06",
@@ -110,9 +110,9 @@
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
           "status": "in_progress",
-          "progress": 73,
+          "progress": 66,
           "assignee": "YJJ ",
-          "notes": ""
+          "notes": "已测试完，并上传至数据库"
         },
         {
           "id": "pds-08",
@@ -1020,5 +1020,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-07-23T02:55:59"
+  "last_updated": "2026-07-24T15:29:05"
 }
