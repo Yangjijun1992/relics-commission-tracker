@@ -110,9 +110,9 @@
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
           "status": "in_progress",
-          "progress": 66,
+          "progress": 34,
           "assignee": "YJJ ",
-          "notes": "已测试完，并上传至数据库"
+          "notes": "已测试完，并上传至数据库； 需要清华邮寄剩余的55只pmt补测app"
         },
         {
           "id": "pds-08",
@@ -146,6 +146,17 @@
           "progress": 0,
           "assignee": "YJJ",
           "notes": "厂家给出报价"
+        },
+        {
+          "id": "pds-13",
+          "name": "PMT mapping",
+          "name_cn": "pmt挑选排布",
+          "planned_start": "2026-07-31",
+          "planned_end": "2026-08-20",
+          "status": "in_progress",
+          "progress": 7,
+          "assignee": "谢凌峰",
+          "notes": "已拿到挑选过的pmt_id"
         }
       ],
       "github_user": "Yangjijun1992"
@@ -1020,5 +1031,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-07-24T15:29:05"
+  "last_updated": "2026-07-31T07:20:07"
 }
