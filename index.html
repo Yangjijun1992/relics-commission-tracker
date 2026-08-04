@@ -650,6 +650,50 @@
 
     .add-task-btn:hover { border-color: var(--accent-green); color: var(--accent-green); }
 
+    .sys-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      padding: 0.6rem 0.8rem;
+      border-top: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+    .sys-action-row .save-btn,
+    .sys-action-row .push-btn-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sys-action-row .save-btn { border-color: var(--accent-green); color: var(--accent-green); }
+    .sys-action-row .save-btn:hover:not(:disabled) { background: rgba(34,197,94,0.1); }
+    .sys-action-row .push-btn-mini { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+    .sys-action-row .push-btn-mini:hover:not(:disabled) { background: rgba(6,182,212,0.1); }
+    .sys-action-row .save-btn:disabled,
+    .sys-action-row .push-btn-mini:disabled { opacity: 0.4; cursor: not-allowed; }
+    .sys-action-row .push-src-select {
+      padding: 0.35rem 0.5rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+    }
+    .sys-action-row .sys-save-status {
+      font-size: 0.72rem;
+      color: var(--accent-green);
+      min-height: 1rem;
+    }
+    .sys-action-row .sys-save-status.err { color: var(--accent-red); }
+
     .del-task-btn {
       background: transparent;
       border: none;
@@ -790,6 +834,74 @@
       min-height: 1.2rem;
     }
 
+    .token-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      background: rgba(0,0,0,0.55);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .token-modal-overlay.show { display: flex; }
+
+    .token-modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      width: 420px;
+      max-width: 95vw;
+    }
+    .token-modal-box h2 { font-size: 1.2rem; margin-bottom: 0.35rem; text-align: center; }
+    .token-modal-box .desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .token-modal-box label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.25rem;
+      margin-top: 0.75rem;
+    }
+    .token-modal-box input[type=password], .token-modal-box input[type=text] {
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      box-sizing: border-box;
+    }
+    .token-modal-box input:focus { outline: none; border-color: var(--accent-blue); }
+    .token-modal-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+    .token-modal-actions button {
+      flex: 1;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      background: transparent;
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .token-modal-actions .token-primary { border-color: var(--accent-cyan); color: var(--accent-cyan); font-weight: 600; }
+    .token-modal-actions .token-primary:hover { background: rgba(6,182,212,0.1); }
+    .token-modal-actions .token-link { border-color: var(--accent-blue); color: var(--accent-blue); }
+    .token-modal-actions .token-link:hover { background: rgba(59,130,246,0.1); }
+    .token-modal-box .error { color: var(--accent-red); font-size: 0.8rem; min-height: 1.2rem; margin-top: 0.6rem; }
+
     .identity-bar {
       display: flex;
       align-items: center;
@@ -902,6 +1014,25 @@
       <input type="password" id="login-password" placeholder="password">
       <button class="login-btn" id="login-btn" onclick="doGlobalLogin()">登 录</button>
       <div class="error" id="login-error"></div>
+    </div>
+  </div>
+
+  <div class="token-modal-overlay" id="token-modal">
+    <div class="token-modal-box">
+      <h2>🔑 验证 GitHub 身份</h2>
+      <div class="desc">
+        输入你的 GitHub Personal Access Token (PAT)。<br>
+        点击「生成 Token」可一键跳转到 GitHub 设置页创建（需勾选 <b>repo</b> 权限）。<br>
+        Token 仅在浏览器本地使用，不会上传到任何服务器。
+      </div>
+      <label>GitHub Personal Access Token (PAT)</label>
+      <input type="password" id="token-input" placeholder="ghp_xxxx 或 github_pat_xxxx" autocomplete="off">
+      <div class="error" id="token-error"></div>
+      <div class="token-modal-actions">
+        <button type="button" class="token-link" onclick="openTokenSettings()">⚙️ 生成 Token</button>
+        <button type="button" class="token-primary" onclick="submitToken()">验证身份</button>
+        <button type="button" onclick="closeTokenModal()">取消</button>
+      </div>
     </div>
   </div>
 
@@ -1049,7 +1180,14 @@
         if (target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'BUTTON' || target.closest('button')) return;
       }
       const el = document.getElementById('sys-' + sysId);
-      if (el) el.classList.toggle('open');
+      if (el) {
+        el.classList.toggle('open');
+        sessionStorage.setItem('relics_open_' + sysId, String(el.classList.contains('open')));
+      }
+    }
+
+    function isSystemOpen(sysId) {
+      return sessionStorage.getItem('relics_open_' + sysId) === 'true';
     }
 
     function toggleGanttForSys(sysId, event) {
@@ -1116,6 +1254,20 @@
 
     async function loadData() {
       try {
+        const localRaw = localStorage.getItem('relics_commission_data');
+        if (localRaw) {
+          try {
+            const local = JSON.parse(localRaw);
+            if (local && local.subsystems) {
+              data = local;
+              populateSubsystemFilter();
+              render();
+              return;
+            }
+          } catch (e) {
+            console.warn('Ignoring invalid localStorage data:', e);
+          }
+        }
         const resp = await fetch('data/commission.json?' + Date.now());
         data = await resp.json();
       } catch (e) {
@@ -1271,7 +1423,7 @@
         const isGanttActive = activeGanttSys === sys.id;
 
         const div = document.createElement('div');
-        div.className = 'subsystem';
+        div.className = 'subsystem' + (isSystemOpen(sys.id) ? ' open' : '');
         div.id = 'sys-' + sys.id;
         div.innerHTML = `
           <div class="subsystem-header" onclick="toggleSubsystem('${sys.id}', event)">
@@ -1368,6 +1520,15 @@
             <div class="add-task-row">
               ${edit ? `<button class="add-task-btn" onclick="addTask('${sys.id}')">+ Add Subtask</button>` : ''}
             </div>
+            <div class="sys-action-row">
+              <button class="save-btn" ${edit ? '' : 'disabled'} onclick="saveSystemLocal('${sys.id}')">💾 保存</button>
+              <select class="push-src-select" onchange="updatePushSrcDefault(this.value)" title="选择推送数据来源">
+                <option value="local" ${localStorage.getItem('relics_push_src') !== 'remote' ? 'selected' : ''}>本地修改 (localStorage)</option>
+                <option value="remote" ${localStorage.getItem('relics_push_src') === 'remote' ? 'selected' : ''}>远程数据 (GitHub)</option>
+              </select>
+              <button class="push-btn-mini" ${edit ? '' : 'disabled'} onclick="pushSystemToGitHub('${sys.id}','${sys.github_user||''}')">⬆️ Push config</button>
+              <span class="sys-save-status" id="save-status-${sys.id}"></span>
+            </div>
           </div>
         `;
         container.appendChild(div);
@@ -1383,7 +1544,7 @@
       task[field] = value;
       data.last_updated = new Date().toISOString().slice(0,19);
       renderSummary();
-      renderGantt();
+      renderActiveGantt();
       saveData();
     }
 
@@ -1394,7 +1555,7 @@
       sys[field] = value;
       data.last_updated = new Date().toISOString().slice(0,19);
       renderSummary();
-      renderGantt();
+      renderActiveGantt();
       saveData();
     }
 
@@ -1417,6 +1578,7 @@
       sys.subtasks.push(newTask);
       data.last_updated = new Date().toISOString().slice(0,19);
       render();
+      saveSystemState(sys.id, true);
       saveData();
     }
 
@@ -1428,7 +1590,12 @@
       sys.subtasks = sys.subtasks.filter(t => t.id !== taskId);
       data.last_updated = new Date().toISOString().slice(0,19);
       render();
+      saveSystemState(sysId, true);
       saveData();
+    }
+
+    function saveSystemState(sysId, open) {
+      sessionStorage.setItem('relics_open_' + sysId, String(open));
     }
 
     function saveData() {
@@ -1535,29 +1702,81 @@
     }
 
     async function pushToGitHub() {
+      await pushDataToGitHub(null, false);
+    }
+
+    function updatePushSrcDefault(value) {
+      localStorage.setItem('relics_push_src', value);
+    }
+
+    function saveSystemLocal(sysId) {
+      if (!canEdit(sysId)) return;
+      data.last_updated = new Date().toISOString().slice(0,19);
+      localStorage.setItem('relics_commission_data', JSON.stringify(data));
+      const el = document.getElementById('save-status-' + sysId);
+      if (el) {
+        el.textContent = '✓ 已保存到本地';
+        el.className = 'sys-save-status';
+        setTimeout(() => { if (el) el.textContent = ''; }, 2000);
+      }
+      document.getElementById('last-updated').textContent = data.last_updated;
+    }
+
+    async function pushSystemToGitHub(sysId, githubUser) {
+      if (!canEdit(sysId)) {
+        alert('你没有该子系统的编辑权限，无法推送。');
+        return;
+      }
+      const statusEl = document.getElementById('save-status-' + sysId);
+      const src = (localStorage.getItem('relics_push_src') || 'local');
+      const useRemote = src === 'remote';
+      if (useRemote) {
+        await fetchRemoteData();
+      } else {
+        data.last_updated = new Date().toISOString().slice(0,19);
+        localStorage.setItem('relics_commission_data', JSON.stringify(data));
+      }
+      await pushDataToGitHub(statusEl, true);
+    }
+
+    async function fetchRemoteData() {
+      const resp = await fetch('data/commission.json?' + Date.now());
+      data = await resp.json();
+      populateSubsystemFilter();
+      render();
+    }
+
+    async function pushDataToGitHub(statusEl, isInline) {
       const cfg = loadGithubConfig();
       if (!cfg || !cfg.token || !cfg.ownerRepo) {
-        document.getElementById('push-status').textContent = 'Please fill and save config first.';
-        document.getElementById('push-status').className = 'push-status err';
+        if (isInline && statusEl) {
+          statusEl.textContent = '请先填写 GitHub Push 配置 (右上角 Push to GitHub)';
+          statusEl.className = 'sys-save-status err';
+        } else {
+          document.getElementById('push-status').textContent = 'Please fill and save config first.';
+          document.getElementById('push-status').className = 'push-status err';
+        }
         toggleGithubConfig();
         return;
       }
 
       const [owner, repo] = cfg.ownerRepo.split('/');
       if (!owner || !repo) {
-        document.getElementById('push-status').textContent = 'Invalid owner/repo format.';
-        document.getElementById('push-status').className = 'push-status err';
+        const msg = 'Invalid owner/repo format.';
+        if (isInline && statusEl) { statusEl.textContent = msg; statusEl.className = 'sys-save-status err'; }
+        else { document.getElementById('push-status').textContent = msg; document.getElementById('push-status').className = 'push-status err'; }
         return;
       }
 
       const branch = cfg.branch || 'main';
       const filePath = 'data/commission.json';
-      const statusEl = document.getElementById('push-status');
+      const headStatusEl = document.getElementById('push-status');
       const btn = document.getElementById('push-now-btn');
+      const activeEl = statusEl || headStatusEl;
 
-      btn.disabled = true;
-      statusEl.textContent = 'Pushing...';
-      statusEl.className = 'push-status';
+      if (btn) btn.disabled = true;
+      activeEl.textContent = 'Pushing...';
+      activeEl.className = isInline ? 'sys-save-status' : 'push-status';
 
       try {
         const headers = {
@@ -1590,17 +1809,17 @@
 
         if (putResp.ok) {
           const result = await putResp.json();
-          statusEl.textContent = 'Pushed! Commit: ' + result.commit.sha.slice(0, 7);
-          statusEl.className = 'push-status ok';
+          activeEl.textContent = 'Pushed! ' + result.commit.sha.slice(0, 7);
+          activeEl.className = isInline ? 'sys-save-status' : 'push-status ok';
         } else {
           const err = await putResp.json();
           throw new Error(`PUT failed (${putResp.status}): ${err.message}`);
         }
       } catch (err) {
-        statusEl.textContent = 'Error: ' + err.message;
-        statusEl.className = 'push-status err';
+        activeEl.textContent = 'Error: ' + err.message;
+        activeEl.className = isInline ? 'sys-save-status err' : 'push-status err';
       } finally {
-        btn.disabled = false;
+        if (btn) btn.disabled = false;
       }
     }
 
@@ -1722,14 +1941,36 @@
         return;
       }
 
-      const token = prompt('请输入你的 GitHub Personal Access Token (PAT):\n\n' +
-        '需要 repo 权限。创建地址: https://github.com/settings/tokens\n' +
-        '此 token 仅用于验证你的 GitHub 身份，不会被上传到任何服务器。');
+      document.getElementById('token-input').value = '';
+      document.getElementById('token-error').textContent = '';
+      document.getElementById('token-modal').classList.add('show');
+      setTimeout(() => document.getElementById('token-input').focus(), 50);
+    }
 
-      if (!token) return;
+    function openTokenSettings() {
+      window.open('https://github.com/settings/tokens', '_blank', 'noopener,noreferrer');
+    }
 
+    function closeTokenModal() {
+      document.getElementById('token-modal').classList.remove('show');
+    }
+
+    function submitToken() {
+      const token = document.getElementById('token-input').value.trim();
+      if (!token) {
+        document.getElementById('token-error').textContent = '请输入 GitHub Token';
+        return;
+      }
+      closeTokenModal();
       verifyGithubToken(token);
     }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeTokenModal();
+    });
+    document.getElementById('token-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitToken();
+    });
 
     async function verifyGithubToken(token) {
       const ghLoginBtn = document.getElementById('gh-login-btn');
