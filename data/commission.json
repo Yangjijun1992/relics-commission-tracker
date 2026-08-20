@@ -21,10 +21,10 @@
           "name_cn": "PMT选型与排列",
           "planned_start": "2026-06-22",
           "planned_end": "2026-07-25",
-          "status": "in_progress",
-          "progress": 0,
+          "status": "completed",
+          "progress": 100,
           "assignee": "YJJ",
-          "notes": "杨季军、雷阳目前开始测试光电倍增管"
+          "notes": "已经完成筛选"
         },
         {
           "id": "pds-pre-03",
@@ -109,10 +109,10 @@
           "name_cn": "室温后脉冲特性测量",
           "planned_start": "2026-07-15",
           "planned_end": "2026-07-24",
-          "status": "in_progress",
-          "progress": 34,
+          "status": "completed",
+          "progress": 100,
           "assignee": "YJJ ",
-          "notes": "已测试完，并上传至数据库； 需要清华邮寄剩余的55只pmt补测app"
+          "notes": "西湖部分已测试完"
         },
         {
           "id": "pds-08",
@@ -143,9 +143,9 @@
           "planned_start": "2026-07-10",
           "planned_end": "2026-10-30",
           "status": "in_progress",
-          "progress": 0,
+          "progress": 58,
           "assignee": "YJJ",
-          "notes": "厂家给出报价"
+          "notes": "厂家开始采购"
         },
         {
           "id": "pds-13",
@@ -154,7 +154,7 @@
           "planned_start": "2026-07-31",
           "planned_end": "2026-08-20",
           "status": "in_progress",
-          "progress": 7,
+          "progress": 27,
           "assignee": "谢凌峰",
           "notes": "已拿到挑选过的pmt_id"
         }
@@ -1031,5 +1031,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-07-31T07:20:07"
+  "last_updated": "2026-08-20T08:35:52"
 }
