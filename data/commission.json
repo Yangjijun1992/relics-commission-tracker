@@ -159,28 +159,6 @@
       "planned_end": "2026-11-30",
       "subtasks": [
         {
-          "id": "daq-01",
-          "name": "Front-end Electronics Commissioning",
-          "name_cn": "前端电子学调试",
-          "planned_start": "2026-10-30",
-          "planned_end": "2026-12-30",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "YJJ ",
-          "notes": ""
-        },
-        {
-          "id": "daq-02",
-          "name": "Trigger System Setup",
-          "name_cn": "触发系统搭建",
-          "planned_start": "2026-07-30",
-          "planned_end": "2026-08-15",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "王笑宇",
-          "notes": "暂无此计划，后续补充"
-        },
-        {
           "id": "daq-03",
           "name": "Data Acquisition Software Deployment",
           "name_cn": "数据采集软件部署",
@@ -225,17 +203,6 @@
           "notes": "暂无此计划，后续补充"
         },
         {
-          "id": "daq-07",
-          "name": "Calibration Run Framework",
-          "name_cn": "标定运行框架",
-          "planned_start": "2026-10-10",
-          "planned_end": "2026-12-30",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "蔡畅",
-          "notes": "有待完善"
-        },
-        {
           "id": "daq-08",
           "name": "Data Quality Monitoring",
           "name_cn": "数据质量监控",
@@ -252,10 +219,10 @@
           "name_cn": "数据处理流程架构",
           "planned_start": "2026-07-01",
           "planned_end": "2026-11-30",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "in_progress",
+          "progress": 84,
+          "assignee": "赵一飞",
+          "notes": "原型机已验证relicsdat repo功能，后续基于此开发"
         },
         {
           "id": "daq-10",
@@ -263,53 +230,20 @@
           "name_cn": "网络拓扑架构",
           "planned_start": "2026-07-01",
           "planned_end": "2026-07-31",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "completed",
+          "progress": 100,
+          "assignee": "雷阳、蔡畅",
+          "notes": "网络架构与拓扑准备就绪"
         },
         {
           "id": "daq-11",
           "name": "Database Setup",
           "name_cn": "数据库搭建",
-          "planned_start": "2026-10-15",
-          "planned_end": "2026-12-31",
+          "planned_start": "2026-09-03",
+          "planned_end": "2026-10-15",
           "status": "not_started",
           "progress": 0,
-          "assignee": "杨继军，雷阳",
-          "notes": ""
-        },
-        {
-          "id": "daq-12",
-          "name": "Server Configuration",
-          "name_cn": "服务器配置",
-          "planned_start": "2026-07-15",
-          "planned_end": "2026-08-15",
-          "status": "in_progress",
-          "progress": 48,
-          "assignee": "蔡畅、赵一飞",
-          "notes": "DAQ部分默认已经配置好；数据分析部分后续追踪"
-        },
-        {
-          "id": "daq-13",
-          "name": "Hardware Space Planning",
-          "name_cn": "硬件空间规划",
-          "planned_start": "2026-07-21",
-          "planned_end": "2026-10-01",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "杨继军",
-          "notes": ""
-        },
-        {
-          "id": "daq-14",
-          "name": "Data Storage Format Definition",
-          "name_cn": "数据存储格式定义",
-          "planned_start": "2026-07-15",
-          "planned_end": "2026-10-30",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "蔡畅",
+          "assignee": "郝彦州",
           "notes": ""
         }
       ],
@@ -1020,5 +954,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-09-08T05:40:20"
+  "last_updated": "2026-09-08T06:23:49"
 }
