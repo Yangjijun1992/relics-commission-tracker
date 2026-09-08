@@ -1235,23 +1235,48 @@
       }
     }
 
+    function getTaskPrefix(sys) {
+      // 优先沿用现有任务 ID 的统一前缀（如 comp、fac、pds）
+      for (const t of (sys.subtasks || [])) {
+        const m = (t.id || '').match(/^(.*)-(\d+)$/);
+        if (m) return m[1];
+      }
+      return (sys.id || 'task').replace(/[^a-z]/gi, '') || 'task';
+    }
+
+    function compareByStart(a, b) {
+      const da = a.planned_start || '9999-99-99';
+      const db = b.planned_start || '9999-99-99';
+      if (da !== db) return da < db ? -1 : 1;
+      const ea = a.planned_end || '9999-99-99';
+      const eb = b.planned_end || '9999-99-99';
+      if (ea !== eb) return ea < eb ? -1 : 1;
+      return (a.id || '').localeCompare(b.id || '');
+    }
+
+    function sortSubtaskList(list) {
+      // 就地排序（仅排序展示，不改 ID、不写库）
+      if (Array.isArray(list)) list.sort(compareByStart);
+      return list;
+    }
+
+    function normalizeSubsystem(sys) {
+      // 排序 + 重编号一体：按 planned_start 排序后，ID 从 01 连续重排
+      if (!sys || !Array.isArray(sys.subtasks)) return;
+      const prefix = getTaskPrefix(sys);
+      sys.subtasks.sort(compareByStart);
+      sys.subtasks.forEach((t, i) => {
+        t.id = prefix + '-' + String(i + 1).padStart(2, '0');
+      });
+    }
+
     function sortTasksByTime() {
       if (!activeGanttSys) return;
       const sys = data.subsystems.find(s => s.id === activeGanttSys);
       if (!sys) return;
       if (!canEdit(sys.id)) { alert('只有管理员可以执行排序操作'); return; }
 
-      sys.subtasks.sort((a, b) => {
-        const da = a.planned_start || '9999-99-99';
-        const db = b.planned_start || '9999-99-99';
-        if (da !== db) return da.localeCompare(db);
-        return (a.planned_end || '9999-99-99').localeCompare(b.planned_end || '9999-99-99');
-      });
-
-      sys.subtasks.forEach((t, i) => {
-        const prefix = sys.id.replace('-', '');
-        t.id = `${sys.id}-${String(i + 1).padStart(2, '0')}`;
-      });
+      normalizeSubsystem(sys);
 
       data.last_updated = new Date().toISOString().slice(0, 19);
       saveData();
@@ -1455,6 +1480,8 @@
       container.innerHTML = '';
 
       filteredData.subsystems.forEach((sys, si) => {
+        // 任务清单始终按开始时间排序展示
+        sortSubtaskList(sys.subtasks);
         const prog = getSubsystemProgress(sys);
         const edit = canEdit(sys.id);
         const readonly = globalLoggedIn && !edit;
@@ -1580,8 +1607,16 @@
       if (!task) return;
       task[field] = value;
       data.last_updated = new Date().toISOString().slice(0,19);
-      renderSummary();
-      renderActiveGantt();
+      if (field === 'planned_start' || field === 'planned_end') {
+        // 日期变化会影响时间顺序 → 排序 + 连续重编号（排序+ID 一体）
+        normalizeSubsystem(sys);
+        render();
+        saveSystemState(sys.id, true);
+      } else {
+        // 其余字段不改变顺序，保持轻量刷新（避免打断 slider/输入）
+        renderSummary();
+        renderActiveGantt();
+      }
       saveData();
     }
 
@@ -1600,13 +1635,15 @@
       if (!canEdit(sysId)) return;
       const sys = data.subsystems.find(s => s.id === sysId);
       if (!sys) return;
-      const idx = sys.subtasks.length + 1;
+      const prefix = getTaskPrefix(sys);
+      // 生成一个不可能与现有任务冲突的临时 ID（时间戳后缀），随后 normalize 统一重排
+      const tempId = prefix + '-tmp-' + Date.now().toString(36);
       const newTask = {
-        id: `${sys.id}-${String(idx).padStart(2,'0')}`,
+        id: tempId,
         name: 'New Task',
         name_cn: '新任务',
         planned_start: sys.planned_start,
-        planned_end: sys.planned_start,
+        planned_end: sys.planned_end,
         status: 'not_started',
         progress: 0,
         assignee: 'TBD',
@@ -1614,6 +1651,7 @@
       };
       sys.subtasks.push(newTask);
       data.last_updated = new Date().toISOString().slice(0,19);
+      normalizeSubsystem(sys);   // 排序 + 连续重编号（临时 ID 也会被规范化）
       render();
       saveSystemState(sys.id, true);
       saveData();
@@ -1626,6 +1664,7 @@
       if (!sys) return;
       sys.subtasks = sys.subtasks.filter(t => t.id !== taskId);
       data.last_updated = new Date().toISOString().slice(0,19);
+      normalizeSubsystem(sys);   // 删除后自动按时间重排、补齐序号
       render();
       saveSystemState(sysId, true);
       saveData();
@@ -1935,7 +1974,8 @@
 
       const sys = data.subsystems.find(s => s.id === sysId);
       if (!sys) return;
-
+      // 甘特图始终按开始时间排序，与任务清单保持一致
+      sortSubtaskList(sys.subtasks);
       const color = COLORS[data.subsystems.findIndex(s => s.id === sysId) % COLORS.length];
       const allDates = [];
       allDates.push(new Date(sys.planned_start));
