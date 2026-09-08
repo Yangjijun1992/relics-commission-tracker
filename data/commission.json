@@ -124,6 +124,28 @@
           "progress": 50,
           "assignee": "谢凌峰",
           "notes": "已排好TOP、Bottom Array, 后续将mapping 延续到接头馈通即可"
+        },
+        {
+          "id": "pds-11",
+          "name": "Cabling Test(HV sparking, Cross talk, Bandwidth decay)",
+          "name_cn": "信号线测试（高压打火、串扰、信号衰减）",
+          "planned_start": "2026-10-14",
+          "planned_end": "2026-11-22",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
+        },
+        {
+          "id": "pds-12",
+          "name": "Base Test",
+          "name_cn": "Base烘烤、热应力释放，质量检测",
+          "planned_start": "2026-10-15",
+          "planned_end": "2026-11-19",
+          "status": "not_started",
+          "progress": 0,
+          "assignee": "TBD",
+          "notes": ""
         }
       ],
       "github_user": "Yangjijun1992"
@@ -998,5 +1020,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-09-08T03:04:17"
+  "last_updated": "2026-09-08T05:40:20"
 }
