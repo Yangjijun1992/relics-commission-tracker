@@ -689,14 +689,6 @@
     .sys-action-row .push-btn-mini:hover:not(:disabled) { background: rgba(6,182,212,0.1); }
     .sys-action-row .save-btn:disabled,
     .sys-action-row .push-btn-mini:disabled { opacity: 0.4; cursor: not-allowed; }
-    .sys-action-row .push-src-select {
-      padding: 0.35rem 0.5rem;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-color);
-      border-radius: 0.5rem;
-      color: var(--text-secondary);
-      font-size: 0.75rem;
-    }
     .sys-action-row .sys-save-status {
       font-size: 0.72rem;
       color: var(--accent-green);
@@ -1571,10 +1563,6 @@
             </div>
             <div class="sys-action-row">
               <button class="save-btn" ${edit ? '' : 'disabled'} onclick="saveSystemLocal('${sys.id}')">💾 保存</button>
-              <select class="push-src-select" onchange="updatePushSrcDefault(this.value)" title="选择推送数据来源">
-                <option value="local" ${localStorage.getItem('relics_push_src') !== 'remote' ? 'selected' : ''}>本地修改 (localStorage)</option>
-                <option value="remote" ${localStorage.getItem('relics_push_src') === 'remote' ? 'selected' : ''}>远程数据 (GitHub)</option>
-              </select>
               <button class="push-btn-mini" ${edit ? '' : 'disabled'} onclick="pushSystemToGitHub('${sys.id}','${sys.github_user||''}')">⬆️ Push config</button>
               <span class="sys-save-status" id="save-status-${sys.id}"></span>
             </div>
@@ -1754,10 +1742,6 @@
       await pushDataToGitHub(null, false);
     }
 
-    function updatePushSrcDefault(value) {
-      localStorage.setItem('relics_push_src', value);
-    }
-
     function saveSystemLocal(sysId) {
       if (!canEdit(sysId)) return;
       data.last_updated = new Date().toISOString().slice(0,19);
@@ -1777,20 +1761,11 @@
         return;
       }
       const statusEl = document.getElementById('save-status-' + sysId);
-      const src = (localStorage.getItem('relics_push_src') || 'local');
-      const useRemote = src === 'remote';
-      if (useRemote) {
-        // 以远程为基准：拉取线上数据作为推送内容
-        try {
-          data = await fetchRemoteData();
-        } catch (e) {
-          if (statusEl) { statusEl.textContent = '获取远程数据失败: ' + e.message; statusEl.className = 'sys-save-status err'; }
-          return;
-        }
-      } else {
-        data.last_updated = new Date().toISOString().slice(0,19);
-        localStorage.setItem('relics_commission_data', JSON.stringify(data));
-      }
+      // 清理历史遗留的错误数据源标记（曾经会把本地编辑丢弃后推远程）
+      localStorage.removeItem('relics_push_src');
+      // 始终推送当前页面中已编辑的数据（data 含用户所有本地修改）
+      data.last_updated = new Date().toISOString().slice(0,19);
+      localStorage.setItem('relics_commission_data', JSON.stringify(data));
       await pushDataToGitHub(statusEl, true);
     }
 
@@ -1875,6 +1850,17 @@
           remoteText = b64ToUtf8(remoteInfo.content.replace(/\n/g, ''));
           remoteTime = parseLastUpdated(remoteText);
         }
+        // 推送内容
+        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+        const localText = b64ToUtf8(content);
+
+        // 内容与远程完全一致 → 无需创建空提交
+        if (remoteText && remoteText === localText) {
+          activeEl.textContent = '内容与远程一致，无新修改可推送';
+          activeEl.className = isInline ? 'sys-save-status' : 'push-status ok';
+          return;
+        }
+
         if (remoteInfo && remoteTime > localTime) {
           const remoteDate = new Date(remoteTime).toISOString().slice(0, 19).replace('T', ' ');
           const ok = confirm(
@@ -1892,7 +1878,6 @@
         }
 
         // PUT 主体
-        const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
         const makeBody = () => {
           const body = {
             message: cfg.commitMsg || 'update commission progress',
