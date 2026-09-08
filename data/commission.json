@@ -561,7 +561,7 @@
       "id": "cryo",
       "name": "Cryogenics & Circulation System",
       "name_cn": "低温与循环系统",
-      "responsible": "于佳成、李凯航",
+      "responsible": "谢凌峰",
       "planned_start": "2026-06-17",
       "planned_end": "2026-12-30",
       "subtasks": [
@@ -698,7 +698,7 @@
           "notes": ""
         }
       ],
-      "github_user": "JiachenYu-123,Kaihang99"
+      "github_user": "LingFeng-Xie"
     },
     {
       "id": "muon",
@@ -943,5 +943,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-09-08T08:24:42"
+  "last_updated": "2026-09-08T10:50:33"
 }
