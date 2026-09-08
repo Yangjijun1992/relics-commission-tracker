@@ -1261,12 +1261,12 @@
     }
 
     function normalizeSubsystem(sys) {
-      // 排序 + 重编号一体：按 planned_start 排序后，ID 从 01 连续重排
+      // 排序 + 重编号一体：按 planned_start 排序后，ID 从 00 连续重排（pds-00, pds-01, ...）
       if (!sys || !Array.isArray(sys.subtasks)) return;
       const prefix = getTaskPrefix(sys);
       sys.subtasks.sort(compareByStart);
       sys.subtasks.forEach((t, i) => {
-        t.id = prefix + '-' + String(i + 1).padStart(2, '0');
+        t.id = prefix + '-' + String(i).padStart(2, '0');
       });
     }
 
