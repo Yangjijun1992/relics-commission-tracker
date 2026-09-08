@@ -98,10 +98,10 @@
           "name_cn": "光电管基座生产与测试",
           "planned_start": "2026-07-08",
           "planned_end": "2026-10-15",
-          "status": "not_started",
-          "progress": 0,
-          "assignee": "TBD",
-          "notes": ""
+          "status": "in_progress",
+          "progress": 25,
+          "assignee": "YJJ",
+          "notes": "已确认Muon S1波形的重建"
         },
         {
           "id": "pds-10",
@@ -998,5 +998,5 @@
       "github_user": "JiangyuChen853"
     }
   ],
-  "last_updated": "2026-09-08T02:54:12"
+  "last_updated": "2026-09-08T03:04:17"
 }
