@@ -1794,6 +1794,23 @@
       await pushDataToGitHub(statusEl, true);
     }
 
+    function b64ToUtf8(b64) {
+      try {
+        return decodeURIComponent(escape(atob(b64)));
+      } catch (e) {
+        return atob(b64);
+      }
+    }
+
+    function parseLastUpdated(text) {
+      try {
+        const j = JSON.parse(text);
+        return j && j.last_updated ? new Date(j.last_updated).getTime() : 0;
+      } catch (e) {
+        return 0;
+      }
+    }
+
     async function pushDataToGitHub(statusEl, isInline) {
       const cfg = loadGithubConfig();
       if (!cfg || !cfg.token || !cfg.ownerRepo) {
@@ -1826,46 +1843,96 @@
       activeEl.textContent = 'Pushing...';
       activeEl.className = isInline ? 'sys-save-status' : 'push-status';
 
-      try {
-        const headers = {
-          'Authorization': 'token ' + cfg.token,
-          'Accept': 'application/vnd.github.v3+json',
-        };
+      const headers = {
+        'Authorization': 'token ' + cfg.token,
+        'Accept': 'application/vnd.github.v3+json',
+      };
 
+      const setErr = (msg) => {
+        activeEl.textContent = 'Error: ' + msg;
+        activeEl.className = isInline ? 'sys-save-status err' : 'push-status err';
+      };
+
+      try {
         const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${branch}`;
-        const getResp = await fetch(getUrl, { headers });
-        let sha = null;
-        if (getResp.ok) {
-          const fileInfo = await getResp.json();
-          sha = fileInfo.sha;
-        } else if (getResp.status !== 404) {
+
+        // 首次 GET：取最新 SHA 与最新内容
+        let getResp = await fetch(getUrl, { headers });
+        if (getResp.status === 404) {
+          // 文件不存在，走新建
+          getResp = null;
+        } else if (!getResp.ok) {
           throw new Error(`GET failed (${getResp.status}): ${(await getResp.json()).message}`);
         }
+        let remoteInfo = getResp ? await getResp.json() : null;
+        let sha = remoteInfo ? remoteInfo.sha : null;
 
+        // 冲突检测：远程内容是否比我们要推的数据新（说明远程有别人刚提交的更新）
+        const localTime = parseLastUpdated(JSON.stringify(data));
+        let remoteTime = 0;
+        let remoteText = '';
+        if (remoteInfo && remoteInfo.content) {
+          remoteText = b64ToUtf8(remoteInfo.content.replace(/\n/g, ''));
+          remoteTime = parseLastUpdated(remoteText);
+        }
+        if (remoteInfo && remoteTime > localTime) {
+          const remoteDate = new Date(remoteTime).toISOString().slice(0, 19).replace('T', ' ');
+          const ok = confirm(
+            '⚠️ 远程 commission.json 已被其他人更新（' + remoteDate + '），比你要推送的内容更新。\n\n' +
+            '若继续推送，将覆盖远程最新的修改，可能导致他人数据丢失。\n\n' +
+            '【确定】= 仍要覆盖推送\n【取消】= 中止，先点「刷新数据」拉取最新再合并编辑'
+          );
+          if (!ok) {
+            activeEl.textContent = '已取消推送（远程有新更新，请先刷新数据）';
+            activeEl.className = isInline ? 'sys-save-status err' : 'push-status err';
+            return;
+          }
+          // 用户确认覆盖：用最新 SHA，避免 409
+          sha = remoteInfo.sha;
+        }
+
+        // PUT 主体
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-        const body = {
-          message: cfg.commitMsg || 'update commission progress',
-          content: content,
-          branch: branch,
+        const makeBody = () => {
+          const body = {
+            message: cfg.commitMsg || 'update commission progress',
+            content: content,
+            branch: branch,
+          };
+          if (sha) body.sha = sha;
+          return body;
         };
-        if (sha) body.sha = sha;
 
-        const putResp = await fetch(
+        let putResp = await fetch(
           `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
-          { method: 'PUT', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+          { method: 'PUT', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify(makeBody()) }
         );
+
+        // 409 = 竞态冲突（GET 与 PUT 之间远程又被更新），自动重新 GET 最新 SHA 重试一次
+        if (putResp.status === 409) {
+          const get2 = await fetch(getUrl, { headers });
+          if (get2.ok) {
+            const info2 = await get2.json();
+            sha = info2.sha;
+            putResp = await fetch(
+              `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
+              { method: 'PUT', headers: { ...headers, 'Content-Type': 'application/json' }, body: JSON.stringify(makeBody()) }
+            );
+          }
+        }
 
         if (putResp.ok) {
           const result = await putResp.json();
           activeEl.textContent = 'Pushed! ' + result.commit.sha.slice(0, 7);
           activeEl.className = isInline ? 'sys-save-status' : 'push-status ok';
+          // 推送成功后同步本地缓存与远程一致
+          localStorage.setItem('relics_commission_data', JSON.stringify(data));
         } else {
           const err = await putResp.json();
           throw new Error(`PUT failed (${putResp.status}): ${err.message}`);
         }
       } catch (err) {
-        activeEl.textContent = 'Error: ' + err.message;
-        activeEl.className = isInline ? 'sys-save-status err' : 'push-status err';
+        setErr(err.message);
       } finally {
         if (btn) btn.disabled = false;
       }
